@@ -10,3 +10,6 @@ https://www.freecodecamp.org/news/learn-react-usestate-hook-in-10-minutes/
 React useEffect Hooks:
 https://www.freecodecamp.org/news/react-useeffect-absolute-beginners/
 
+Encypt and Decrypt data in nodejs:
+https://www.youtube.com/watch?v=hNYdkBdVzsQ
+https://adnan-tech.com/encrypt-and-decrypt-strings-using-node-js-and-mongo-db/

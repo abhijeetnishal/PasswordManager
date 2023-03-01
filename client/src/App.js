@@ -1,35 +1,19 @@
-import React from 'react'
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import LandingPage from './components/main/LandingPage';
+import SignUp from './components/auth/SignUp'
+import Login from './components/auth/Login'
 
-import {Routes, Route } from 'react-router-dom';
-//Routes and Route used to routing various pages.
-
-import './App.css';
-
-import Navbar from './Components/Navbar'
-import Home from './Components/Home'
-import Signup from './Components/Signup'
-import Login from './Components/Login'
-import PasswordManagerUser from './Components/PasswordManagerUser';
-import Footer from './Components/Footer'
-
-const App = () => {
-  // eslint-disable-next-line
-
+function App() {
   return (
-    <div>
-      <Navbar/>
-        <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/signup' element={<Signup/>} />
-          <Route path='/login' element={<Login/>} />
-          <Route path='/passmanageruser' element={<PasswordManagerUser/>} />
-          <Route path='/logout' element={<Home/>} />
-        </Routes>
-      <Footer/>
+    <div className="App">
+       <Header/>
+        <SignUp/>
+        <Login/>
+        <LandingPage/>
+       <Footer/>
     </div>
-  )
+  );
 }
 
-export default App
-
-//Main file which contains all components.
+export default App;
