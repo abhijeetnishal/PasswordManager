@@ -63,7 +63,8 @@ const SignUp = () => {
                 <div>
                   {
                     !validateEmail(email) ? 
-                    (<button type='submit' onClick={invalidEmail} >Signup</button>):(
+                    (<button type='submit' onClick={invalidEmail} >Signup</button>):
+                    (
                       <div> </div>  
                     )
                   }

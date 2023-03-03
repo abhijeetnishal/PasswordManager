@@ -22,6 +22,7 @@ const Login = () => {
     })
     const data = await response.json();
     setMessage(data.message);
+    console.log(data.token);
   }
 
   const emptyFieldFunc = ()=>{
