@@ -78,7 +78,7 @@ const login = async (req,res)=>{
             id: existingUser._id
         }, SecretKey);
         
-        res.status(200).json({message:existingUser.username, token: token});
+        res.cookie('token', token).json({message: existingUser.username, token:token});
     }
 
     catch(error){

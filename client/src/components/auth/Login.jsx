@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,11 +19,12 @@ const Login = () => {
       body: JSON.stringify({
         email,
         password
-      })
+      }),
+      credentials : 'include',
     })
     const data = await response.json();
+    console.log(data.message);
     setMessage(data.message);
-    console.log(data.token);
   }
 
   const emptyFieldFunc = ()=>{
@@ -40,6 +42,9 @@ const Login = () => {
     setMessage('Invalid email');
   }
 
+  if (message!=='') {
+    return <Navigate to={'/'} />
+  }
 
   return (
     <div>
