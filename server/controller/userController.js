@@ -23,8 +23,7 @@ const signup = async(req,res)=>{
         const existingUser = await userModel.findOne({email: email})
         
         if(existingUser){
-            res.status(400);
-            return res.json({message:"user already exist"});
+            return res.status(409).json({message:"user already exist"});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -35,7 +34,8 @@ const signup = async(req,res)=>{
             username: username
         });
 
-        res.status(201).json({message: username});
+        const token = jwt.sign({ userId: user._id }, SecretKey);
+        res.status(201).json({token});
     }
 
     catch(error){
@@ -46,7 +46,6 @@ const signup = async(req,res)=>{
 }
 
 
-
 const login = async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
@@ -55,30 +54,42 @@ const login = async (req,res)=>{
         const existingUser = await userModel.findOne({email: email})
 
         if(!existingUser){
-            res.status(404);
-            return res.send({message:"user doesn't exist"});
+            return res.status(401).json({message:"user doesn't exist"});
         }
 
         const matchPassword = await bcrypt.compare(password, existingUser.password);
 
         if(!matchPassword){
-            res.status(400);
-            return res.send({message:"invalid password"});
+            return res.status(401).send({message:"invalid password"});
         }
-
-        const token = jwt.sign(
-        {
-            email: existingUser.email,
-            id: existingUser._id
-        }, SecretKey);
         
-        res.cookie('token', token).json({message: existingUser.username, token:token});
+        const username = existingUser.username;
+        const token = jwt.sign({ userId: existingUser._id }, SecretKey);
+        
+        res.status(201).json({token, username});
     }
 
     catch(error){
         console.log(error);
-        res.status(500).json({message:"Something went wrong"});
+        res.status(500).json({message:"Internal Server Error"});
     }
 }
 
-module.exports = {signup, login};
+const profile = async (req,res) => {
+    
+    const {token} = await req.cookies;
+
+    jwt.verify(token, SecretKey, {}, (err,info) => {
+      if(err) 
+        throw err;
+      res.status(200).json(info);
+      res.end();
+    });
+};
+
+const logout = (req,res) => {
+    //simply change token to empty string to invalidate
+    res.cookie('token', '').json('ok');
+};
+
+module.exports = {signup, login, profile, logout};

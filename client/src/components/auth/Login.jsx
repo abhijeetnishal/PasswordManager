@@ -1,6 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+import { UserContext } from '../UserContext'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,9 @@ const Login = () => {
 
   const [btnClick, setBtnClick] = useState(false);
   const [message, setMessage] = useState('');
+  const [redirect, setRedirect] = useState(false);
+
+  const {setUserInfo} = useContext(UserContext);
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -22,9 +26,20 @@ const Login = () => {
       }),
       credentials : 'include',
     })
-    const data = await response.json();
-    console.log(data.message);
-    setMessage(data.message);
+
+    if(response.ok) {
+      await response.json().then(userInfo => {
+        setMessage(userInfo.username);
+        setUserInfo(userInfo);
+        setRedirect(true);
+        setBtnClick(true);
+      });
+    }
+    else{
+      const data = await response.json();
+      setBtnClick(true);
+      setMessage(data.message);
+    }
   }
 
   const emptyFieldFunc = ()=>{
@@ -42,10 +57,10 @@ const Login = () => {
     setMessage('Invalid email');
   }
 
-  if (message!=='') {
-    return <Navigate to={'/'} />
+  if(redirect){
+    return <Navigate to={'/home'} />
   }
-
+  
   return (
     <div>
       <div>Login</div>
@@ -58,7 +73,8 @@ const Login = () => {
       {
         (validateEmail(email) && password) ? (
           <button type='submit' onClick={handleSubmit} >Login</button>
-        ) : (<div> {
+        ) : 
+        (<div> {
             !email || !password ? (
               <button type='submit' onClick={emptyFieldFunc} >Login</button>
               ) : ( 

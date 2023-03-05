@@ -1,5 +1,7 @@
 //import express and cors(Cross-Origin Resource Sharing)
-const express = require('express')
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 //create express application
 const app = express()
@@ -7,6 +9,8 @@ const app = express()
 
 app.use(express.json())
 //To parse the incoming requests with JSON we are using express.json() which is a built-in middleware function in Express.
+
+app.use(cookieParser());
 
 const cors = require('cors')
 //We are using app.use() to add the cors middleware to the Express application.
