@@ -21,9 +21,9 @@ const passwordSchema = new mongoose.Schema({
         required: false,
     },
 
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        ref: "User",
         required: true,
     }
 },{timestamps: true})
@@ -31,7 +31,7 @@ const passwordSchema = new mongoose.Schema({
 //mongodb generates userId to use further operation Crud of user with that id.
 
 //Finally, export UserSchema with the following code:
-module.exports = mongoose.model.passwords || mongoose.model("password", passwordSchema);
+module.exports = mongoose.model.password || mongoose.model("password", passwordSchema);
 
 //The code above is saying: "create a user table or collection if there is no table with that name already".
 //You have completed the model for the user. The user collection is now ready to receive the data that is to be passed to it.

@@ -1,12 +1,9 @@
 //Import JWT just below the const bcrypt = require("bcrypt"):
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const dotenv = require('dotenv')
-dotenv.config()
-const SecretKey = process.env.SecretKey
+const User = require('../database/userModel');
+const generateToken = require('../utils/generateToken');
 
-const userModel = require('../database/userModel');
 
 const signup = async(req,res)=>{
     //1. existing user check
@@ -15,27 +12,32 @@ const signup = async(req,res)=>{
     //4. token generation
 
     //create a new user instance and collect the data
-    const username = req.body.userName;
-    const email = req.body.email;
-    const password = req.body.password;
+    const {username, email, password} = req.body;
 
     try{
-        const existingUser = await userModel.findOne({email: email})
+        const userExists = await User.findOne({email});
         
-        if(existingUser){
-            return res.status(409).json({message:"user already exist"});
+        if(userExists){
+            return res.status(404).json({message:"user already exist"});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const result = await userModel.create({
+        const user = await User.create({
+            username: username,
             email: email,
             password: hashedPassword,
-            username: username
         });
 
-        const token = jwt.sign({ userId: user._id }, SecretKey);
-        res.status(201).json({token});
+        if(user) {
+            res.status(201).json({
+              _id: user._id,
+              name: user.username,
+              email: user.email,
+              isAdmin: user.isAdmin,
+              token: generateToken(user._id),
+            });
+          } 
     }
 
     catch(error){
@@ -47,49 +49,73 @@ const signup = async(req,res)=>{
 
 
 const login = async (req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
+    const {email, password} = req.body;
 
     try{
-        const existingUser = await userModel.findOne({email: email})
+        const existingUser = await User.findOne({email})
 
         if(!existingUser){
-            return res.status(401).json({message:"user doesn't exist"});
+            res.status(401);
+            return res.json({message:"user doesn't exist"});
         }
 
         const matchPassword = await bcrypt.compare(password, existingUser.password);
 
         if(!matchPassword){
-            return res.status(401).send({message:"invalid password"});
+            res.status(401)
+            return res.send({message:"invalid password"});
         }
         
-        const username = existingUser.username;
-        const token = jwt.sign({ userId: existingUser._id }, SecretKey);
-        
-        res.status(201).json({token, username});
+        else{
+            res.json({
+                _id: existingUser._id,
+                name: existingUser.name,
+                email: existingUser.email,
+                isAdmin: existingUser.isAdmin,
+                token: generateToken(existingUser._id),
+              });
+        }
     }
 
     catch(error){
         console.log(error);
-        res.status(500).json({message:"Internal Server Error"});
+        res.status(500);
+        res.json({message:"Internal server error"});
     }
 }
 
-const profile = async (req,res) => {
-    
-    const {token} = await req.cookies;
+const updateUserProfile = async(req, res)=>{
+    const user = await User.findById(req.user._id);
 
-    jwt.verify(token, SecretKey, {}, (err,info) => {
-      if(err) 
-        throw err;
-      res.status(200).json(info);
-      res.end();
-    });
-};
+    try{
+        if(user) {
+            user.name = req.body.name || user.name;
+            user.email = req.body.email || user.email;
 
-const logout = (req,res) => {
-    //simply change token to empty string to invalidate
-    res.cookie('token', '').json('ok');
-};
+            if(req.body.password){
+              user.password = req.body.password;
+            }
+        
+            const updatedUser = await user.save();
+        
+            res.json({
+              _id: updatedUser._id,
+              name: updatedUser.name,
+              email: updatedUser.email,
+              pic: updatedUser.pic,
+              isAdmin: updatedUser.isAdmin,
+              token: generateToken(updatedUser._id),
+            });
+          } else {
+            res.status(404);
+            throw new Error("User Not Found");
+          }
+    }
+    catch{
+        console.log(error);
+        res.status(500);
+        res.json({message:"Internal server error"});
+    }
+}
 
-module.exports = {signup, login, profile, logout};
+module.exports = {signup, login, updateUserProfile};

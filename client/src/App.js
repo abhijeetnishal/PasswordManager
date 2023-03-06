@@ -5,11 +5,9 @@ import Footer from './components/footer/Footer'
 import HomePage from './components/main/HomePage';
 
 import { BrowserRouter as Router ,Routes, Route } from "react-router-dom";
-import { UserContextProvider } from './components/UserContext';
 
 function App() {
   return(
-    <UserContextProvider>
       <Router>
         <Routes>
           <Route path='/' element={<LandingPage/>} />
@@ -19,7 +17,6 @@ function App() {
         </Routes>
         <Footer/>
     </Router>
-    </UserContextProvider>
   )
 };
 

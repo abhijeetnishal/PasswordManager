@@ -1,20 +1,20 @@
 const express = require('express');
 
-const auth = require('../middleware/auth')
-
 const { getAllPasswords, getPassword, createPassword, deletePassword, updatePassword } = require('../controller/passwordController');
+
+const { protect } = require('../middleware/authMiddleware');
+
 
 const passwordRouter = express.Router();
 
-passwordRouter.get('/',auth,getAllPasswords);
+passwordRouter.get('/', protect, getAllPasswords);
 
-passwordRouter.get('/:id',auth, getPassword);
+passwordRouter.get('/:id', protect, getPassword);
 
-passwordRouter.post('/',auth, createPassword);
+passwordRouter.post('/', protect, createPassword);
 
-passwordRouter.put('/:id',auth, updatePassword);
+passwordRouter.put('/:id', protect, updatePassword);
 
-passwordRouter.delete('/:id',auth, deletePassword);
-
+passwordRouter.delete('/:id', protect, deletePassword);
 
 module.exports = passwordRouter;
