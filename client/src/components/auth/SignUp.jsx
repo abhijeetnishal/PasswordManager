@@ -1,14 +1,16 @@
 import React from 'react'
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import '../../styles/SignUp.css'
 
 const SignUp = () => {
-  const [userName, setUserName] = useState('');
+  const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [btnClick, setBtnClick] = useState(false);
   const [message, setMessage] = useState('');
+  const [redirect, setRedirect] = useState(false);
   
   const handleSubmit = async(e)=>{
     setBtnClick(true);
@@ -19,13 +21,16 @@ const SignUp = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userName,
+        username,
         email,
         password
       })
     })
     const data = await response.json();
     setMessage(data.message);
+
+    if(response.ok)
+      setRedirect(true);
   }
 
   const emptyFieldFunc = ()=>{
@@ -43,21 +48,25 @@ const SignUp = () => {
     setMessage('Invalid email');
   }
 
+  if(redirect){
+    return <Navigate to={'/login'} />
+  }
+
   return (
     <div>
       <div className='signup'> 
       <div>Signup</div>
         <label htmlFor="username" >Username:</label>
-        <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} /> <br />
+        <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} /> <br />
         <label htmlFor="email">Email:</label>
         <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} /> <br />
         <label htmlFor="password">Password:</label>
         <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} /> <br />
         {
-        (userName && validateEmail(email) && password) ? (
+        (username && validateEmail(email) && password) ? (
           <button type='submit' onClick={handleSubmit} >Signup</button>
         ) : (<div> {
-            !userName || !email || !password ? (
+            !username || !email || !password ? (
               <button type='submit' onClick={emptyFieldFunc} >Signup</button>
               ) : ( 
                 <div>

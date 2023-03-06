@@ -1,6 +1,8 @@
 const express = require('express');
 
-const { signup, login, profile, logout } = require('../controller/userController');
+const { signup, login, updateUserProfile } = require('../controller/userController');
+
+const { protect } = require('../middleware/authMiddleware');
 
 const userRouter = express.Router();
 
@@ -8,8 +10,6 @@ userRouter.post('/signup', signup)
 
 userRouter.post('/login', login)
 
-userRouter.get('/profile', profile);
-
-userRouter.post('/logout', logout)
+userRouter.post('/profile', protect, updateUserProfile);
 
 module.exports = userRouter;
