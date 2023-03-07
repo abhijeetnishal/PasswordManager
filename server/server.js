@@ -55,3 +55,8 @@ app.use('/api/auth',userRouter)
 //password manager Router for CRUD
 const passwordRouter = require('./routes/passwordRoutes')
 app.use('/passwords',passwordRouter)
+
+//Error Handling
+const {notFound, errorHandler} = require('./middleware/errorMiddleware');
+app.use(notFound);
+app.use(errorHandler);

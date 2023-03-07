@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import '../../styles/SignUp.css'
+import '../../styles/Register.css'
 
-const SignUp = () => {
+const Register = () => {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -97,4 +97,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Register
