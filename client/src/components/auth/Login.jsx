@@ -54,7 +54,7 @@ const Login = () => {
   }
 
   if(redirect){
-    return <Navigate to={'/home'} />
+    return <Navigate to={'/mypasswords'} />
   }
   
   return (
