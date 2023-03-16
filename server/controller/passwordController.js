@@ -1,27 +1,12 @@
 const crypto = require('../dataEncryptAndDecryp/ecyptDecrypt')
+const jwt = require('jsonwebtoken');
 
 const passwordModel = require('../database/passwordModel')
-
-const getAllPasswords = async(req,res)=>{
-    try{
-        const data = await passwordModel.find().select({ websiteName: 1, password: 1, _id: 0 })
-        //this method returns all data in DB
-        
-        if(data==null)
-            res.status(404).json('not found');
-        else{
-            res.status(200).json(data);
-        }
-    }
-    catch(error){
-        console.log(error);
-        res.status(500).json({message:"something went wrong"});
-    }
-}
+const secretKey = process.env.SecretKey;
 
 const getPassword = async (req,res)=>{
     try{
-        const data = await passwordModel.findOne({_id: req.params.id})
+        const data = await passwordModel.findOne({_id: req.params.id}).populate('websitename',[''])
 
         if(data==null)
             res.status(404).json('not found');
@@ -38,60 +23,69 @@ const getPassword = async (req,res)=>{
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message:"something went wrong"});
+        res.status(500).json({message:"internal Server Error"});
     }
 }
 
 const createPassword = async (req,res)=>{
     const {websiteName, password} = req.body;
-
-    //encrypt data
-    const data = await crypto.encrypt(password);
-    
-    const encryptedPassword = data.encryptedData;
-    const base64data = data.base64data;
-
-    const newPassword = new passwordModel({
-        websiteName: websiteName,
-        password: encryptedPassword,
-        iv: base64data,
-        userId: req.userId
-    });
+    const {token} = req.cookies;
 
     try{
-        await newPassword.save();
-        res.status(201).json(newPassword);
+        jwt.verify(token, secretKey, {}, async(err, info)=>{
+            if(err)
+                throw err;
+            //encrypt data
+            else{
+                const data = await crypto.encrypt(password);
+            
+                const encryptedPassword = data.encryptedData;
+                const base64data = data.base64data;
+    
+                const newPassword = new passwordModel({
+                    websiteName: websiteName,
+                    password: encryptedPassword,
+                    iv: base64data,
+                    userId: info.id
+                });
+    
+                await newPassword.save();
+                res.status(201).json(newPassword);
+            }
+        })
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message:"something went wrong"});
+        res.status(500).json({message:"Internal Server Error"});
     }
 }
 
 const updatePassword = async (req,res)=>{
     const id = req.params.id;
     const {websiteName, password} = req.body;
-
-    //encrypt data
-    const data = await crypto.encrypt(password);
-    
-    const encryptedPassword = data.encryptedData;
-    const base64data = data.base64data;
-
-    const newPassword ={
-        websiteName: websiteName,
-        password: encryptedPassword,
-        iv: base64data,
-        userId: req.userId
-    }
+    const {token} = req.cookies;
 
     try{
-        await passwordModel.findByIdAndUpdate(id, newPassword, {new: true});
-        res.status(200).json(newPassword);
+        jwt.verify(token, secretKey, {}, async(err, info)=>{
+            //encrypt data
+            const data = await crypto.encrypt(password);
+            
+            const encryptedPassword = data.encryptedData;
+            const base64data = data.base64data;
+    
+            const newPassword ={
+                websiteName: websiteName,
+                password: encryptedPassword,
+                iv: base64data,
+                userId: req.userId
+            }
+            await passwordModel.findByIdAndUpdate(id, newPassword, {new: true});
+            res.status(200).json(newPassword);
+        });
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message:"something went wrong"});
+        res.status(500).json({message:"Internal Server Error"});
     }
 }
 
@@ -109,7 +103,6 @@ const deletePassword = async (req,res)=>{
 
 
 module.exports = {
-    getAllPasswords,
     getPassword,
     createPassword,
     updatePassword,

@@ -21,18 +21,7 @@ app.use(cors())
 //This will allow the user in the frontend to consume the APIs that you have created without any problem.
 
 // Curb Cores Error by adding a header here
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-    );
-    next();
-});
+app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 
 
 //require database connection 
@@ -47,6 +36,7 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT,()=>{
     console.log('server running at port '+PORT);
 })
+
 
 //user Router for signup or login
 const userRouter = require('./routes/userRoutes')
