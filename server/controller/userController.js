@@ -1,9 +1,8 @@
 //Import JWT just below the const bcrypt = require("bcrypt"):
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 const User = require('../database/userModel');
-const generateToken = require('../utils/generateToken');
-
 
 const signup = async(req,res)=>{
     //1. existing user check
@@ -28,16 +27,6 @@ const signup = async(req,res)=>{
             email: email,
             password: hashedPassword,
         });
-
-        if(user) {
-            res.status(201).json({
-              _id: user._id,
-              name: user.username,
-              email: user.email,
-              isAdmin: user.isAdmin,
-              token: generateToken(user._id),
-            });
-          } 
     }
 
     catch(error){
@@ -52,27 +41,28 @@ const login = async (req,res)=>{
     const {email, password} = req.body;
 
     try{
-        const existingUser = await User.findOne({email})
+        const userExist = await User.findOne({email})
 
-        if(!existingUser){
+        if(!userExist){
             res.status(401);
             return res.json({message:"user doesn't exist"});
         }
 
-        const matchPassword = await bcrypt.compare(password, existingUser.password);
+        const matchPassword = await bcrypt.compare(password, userExist.password);
 
         if(!matchPassword){
-            res.status(401)
+            res.status(401);
             return res.send({message:"invalid password"});
         }
         
         else{
-            res.json({
-                _id: existingUser._id,
-                name: existingUser.name,
-                email: existingUser.email,
-                isAdmin: existingUser.isAdmin,
-                token: generateToken(existingUser._id),
+            jwt.sign({email, id:userExist._id}, process.env.SecretKey, {}, (err,token) => {
+                if(err) 
+                    throw err;
+                res.cookie('token', token).json({
+                  id:userExist._id,
+                  email,
+                });
               });
         }
     }
@@ -84,38 +74,17 @@ const login = async (req,res)=>{
     }
 }
 
-const updateUserProfile = async(req, res)=>{
-    const user = await User.findById(req.user._id);
-
-    try{
-        if(user) {
-            user.name = req.body.name || user.name;
-            user.email = req.body.email || user.email;
-
-            if(req.body.password){
-              user.password = req.body.password;
-            }
-        
-            const updatedUser = await user.save();
-        
-            res.json({
-              _id: updatedUser._id,
-              name: updatedUser.name,
-              email: updatedUser.email,
-              pic: updatedUser.pic,
-              isAdmin: updatedUser.isAdmin,
-              token: generateToken(updatedUser._id),
-            });
-          } else {
-            res.status(404);
-            throw new Error("User Not Found");
-          }
-    }
-    catch{
-        console.log(error);
-        res.status(500);
-        res.json({message:"Internal server error"});
-    }
+const profile = (req, res)=>{
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, (err,info) => {
+        if(err) 
+            throw err;
+        res.json(info);
+    });
 }
 
-module.exports = {signup, login, updateUserProfile};
+const logout = (req, res)=>{
+    res.cookie('token', '').json('logout');
+}
+
+module.exports = {signup, login, profile, logout};
