@@ -1,6 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+import { UserContext } from '../../UserContext'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ const Login = () => {
   const [btnClick, setBtnClick] = useState(false);
   const [message, setMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const { setUserInfo, setIsLoggedIn} = useContext(UserContext);
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -20,13 +22,23 @@ const Login = () => {
       body: JSON.stringify({
         email,
         password
-      })
+      }),
+      credentials: 'include',
     })
 
     if(response.ok) {
       await response.json().then(userInfo => {
-        console.log(userInfo);
+        //console.log(userInfo);
+        
+        setUserInfo(userInfo);
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+
+        const token = localStorage.getItem('authToken');
+        localStorage.setItem('token', token);
+
         setMessage(userInfo.username);
+
         setRedirect(true);
         setBtnClick(true);
       });
@@ -54,7 +66,7 @@ const Login = () => {
   }
 
   if(redirect){
-    return <Navigate to={'/mypasswords'} />
+    return <Navigate to={'/create'} />
   }
   
   return (

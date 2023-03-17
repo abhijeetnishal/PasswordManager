@@ -41,7 +41,8 @@ const login = async (req,res)=>{
     const {email, password} = req.body;
 
     try{
-        const userExist = await User.findOne({email})
+        const userExist = await User.findOne({email});
+        const username = userExist.username;
 
         if(!userExist){
             res.status(401);
@@ -61,6 +62,7 @@ const login = async (req,res)=>{
                     throw err;
                 res.cookie('token', token).json({
                   id:userExist._id,
+                  username,
                   email,
                   token
                 });
@@ -77,7 +79,7 @@ const login = async (req,res)=>{
 
 const profile = (req, res)=>{
     const {token} = req.cookies;
-    jwt.verify(token, secret, {}, (err,info) => {
+    jwt.verify(token, process.env.SecretKey, {}, (err,info) => {
         if(err) 
             throw err;
         res.json(info);
