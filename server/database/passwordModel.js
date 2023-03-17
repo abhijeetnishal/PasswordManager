@@ -21,7 +21,7 @@ const passwordSchema = new mongoose.Schema({
         required: false,
     },
 
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
