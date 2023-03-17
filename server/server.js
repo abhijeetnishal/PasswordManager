@@ -15,13 +15,12 @@ dotenv.config()
 app.use(cookieParser());
 
 const cors = require('cors')
-app.use(cors())
 //We are using app.use() to add the cors middleware to the Express application.
 //You need to handle CORS errors. 
 //This will allow the user in the frontend to consume the APIs that you have created without any problem.
 
 // Curb Cores Error by adding a header here
-app.use(cors({credentials:true,origin:'http://localhost:3000'}));
+app.use(cors({credentials:true, origin:'http://localhost:3000'}));
 
 
 //require database connection 

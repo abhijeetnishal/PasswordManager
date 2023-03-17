@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyPasswords = () => {
+const PasswordPage = () => {
     return (
         <div>
             <div>My Passwords</div>
@@ -12,4 +12,4 @@ const MyPasswords = () => {
     )
 }
 
-export default MyPasswords
+export default PasswordPage

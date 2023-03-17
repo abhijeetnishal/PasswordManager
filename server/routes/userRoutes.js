@@ -8,7 +8,7 @@ userRouter.post('/register', signup)
 
 userRouter.post('/login', login)
 
-userRouter.post('/profile', profile);
+userRouter.get('/profile', profile);
 
 userRouter.post('/logout', logout);
 
