@@ -62,6 +62,7 @@ const login = async (req,res)=>{
                 res.cookie('token', token).json({
                   id:userExist._id,
                   email,
+                  token
                 });
               });
         }

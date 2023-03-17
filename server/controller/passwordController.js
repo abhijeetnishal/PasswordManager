@@ -1,12 +1,32 @@
 const crypto = require('../dataEncryptAndDecryp/ecyptDecrypt')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
 const passwordModel = require('../database/passwordModel')
 const secretKey = process.env.SecretKey;
 
+const getAllPasswords = async (req, res)=>{
+    const id = req.params.id;
+    const {token} = req.cookies;
+
+    try{
+        jwt.verify(token, secretKey, {}, async(err, info)=>{
+            if(err)
+                return res.json("Not autenticated");
+            //encrypt data
+            else{
+                const data = await passwordModel.find({userId:id}).select({ websiteName: 1, password: 1, _id: 0 });
+                res.status(202).json(data);
+            }
+        })
+    }
+    catch(error){
+        res.status(500).json({message:"Internal Server Error"});
+    }
+}
+
 const getPassword = async (req,res)=>{
     try{
-        const data = await passwordModel.findOne({_id: req.params.id}).populate('websitename',[''])
+        const data = await passwordModel.findOne({_id: req.params.id});
 
         if(data==null)
             res.status(404).json('not found');
@@ -34,7 +54,7 @@ const createPassword = async (req,res)=>{
     try{
         jwt.verify(token, secretKey, {}, async(err, info)=>{
             if(err)
-                throw err;
+                return res.json("Not autenticated");
             //encrypt data
             else{
                 const data = await crypto.encrypt(password);
@@ -67,6 +87,8 @@ const updatePassword = async (req,res)=>{
 
     try{
         jwt.verify(token, secretKey, {}, async(err, info)=>{
+            if(err)
+                return res.json("Not autenticated");
             //encrypt data
             const data = await crypto.encrypt(password);
             
@@ -91,18 +113,25 @@ const updatePassword = async (req,res)=>{
 
 const deletePassword = async (req,res)=>{
     const id = req.params.id;
+    const {token} = req.cookies;
     try{
-        const password = await passwordModel.findByIdAndRemove(id);
-        res.status(202).json(password);
+        jwt.verify(token, secretKey, {}, async(err, info)=>{
+            if(err)
+                throw err;
+            
+            const password = await passwordModel.findByIdAndRemove(id);
+            res.status(202).json(password);
+        })
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message:"something went wrong"});
+        res.status(500).json({message:"Internal Server Error"});
     }
 }
 
 
 module.exports = {
+    getAllPasswords,
     getPassword,
     createPassword,
     updatePassword,
