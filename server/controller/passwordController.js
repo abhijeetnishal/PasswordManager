@@ -6,18 +6,19 @@ const secretKey = process.env.SecretKey;
 
 const getAllPasswords = async (req, res)=>{
     const id = req.params.id;
-    const {token} = req.cookies;
+    //const {token} = req.cookies;
+    //console.log(req.cookies);
 
     try{
-        jwt.verify(token, secretKey, {}, async(err, info)=>{
-            if(err)
-                return res.json("Not autenticated");
-            //encrypt data
-            else{
+        // jwt.verify(token, secretKey, {}, async(err, info)=>{
+        //     if(err)
+        //         return res.json("Not autenticated");
+        //     //encrypt data
+        //     else{
                 const data = await passwordModel.find({userId:id}).select({ websiteName: 1, password: 1, _id: 0 });
                 res.status(202).json(data);
-            }
-        })
+            //}
+        //})
     }
     catch(error){
         res.status(500).json({message:"Internal Server Error"});

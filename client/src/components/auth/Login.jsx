@@ -1,16 +1,17 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState} from 'react'
 import { Navigate } from 'react-router-dom'
-import { UserContext } from '../../UserContext'
+import { useCookies } from "react-cookie"
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  //eslint-disable-next-line
+  const [_, setCookies] = useCookies(["access_token"]); 
 
   const [btnClick, setBtnClick] = useState(false);
   const [message, setMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
-  const { setUserInfo, setIsLoggedIn} = useContext(UserContext);
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -28,14 +29,10 @@ const Login = () => {
 
     if(response.ok) {
       await response.json().then(userInfo => {
-        //console.log(userInfo);
+      //console.log(userInfo);
         
-        setUserInfo(userInfo);
-        localStorage.setItem('isLoggedIn', 'true');
-        setIsLoggedIn(true);
-
-        const token = localStorage.getItem('authToken');
-        localStorage.setItem('token', token);
+      setCookies("access_token", userInfo);
+      window.localStorage.setItem("userID", userInfo.id);
 
         setMessage(userInfo.username);
 
@@ -76,7 +73,7 @@ const Login = () => {
         <label htmlFor="email">Email</label>
         <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} /> <br />
         <label htmlFor="password">Password</label>
-        <input type="email" value={password} onChange={(e)=>setPassword(e.target.value)} /> <br />
+        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} /> <br />
       </div>
       {
         (validateEmail(email) && password) ? (
@@ -89,7 +86,7 @@ const Login = () => {
                 <div>
                   {
                     !validateEmail(email) ? 
-                    (<button type='submit' onClick={invalidEmail} >Login</button>):(
+                    (<button type='submit' onClick={invalidEmail}>Login</button>):(
                       <div> </div>  
                     )
                   }
