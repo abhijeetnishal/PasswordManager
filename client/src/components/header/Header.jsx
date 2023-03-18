@@ -1,52 +1,37 @@
-import {Link} from "react-router-dom";
-import {useContext, useEffect} from "react";
-import {UserContext} from "../../UserContext";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
-export default function Header() {
-  const {userInfo, setUserInfo, setIsLoggedIn} = useContext(UserContext);
-  useEffect(() => {
-    fetch('http://localhost:4000/api/auth/profile', {
-      credentials: 'include',
-    }).then(response => {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-      });
-    });
-    //eslint-disable-next-line
-  },[]); 
+const Header = () => {
+  const [cookies, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate();
+  const username = cookies.access_token?.username;
 
-  function logout() {
-    fetch('http://localhost:4000/api/auth/logout', {
-      credentials: 'include',
-      method: 'POST',
-    });
-    setUserInfo(null);
-    localStorage.setItem('isLoggedIn', 'false');
-    setIsLoggedIn(false);
-    localStorage.removeItem('token');
-    
-  }
-
-  const username = userInfo?.username;
-  //console.log(username);
+  const logout = () => {
+    setCookies("access_token", "");
+    window.localStorage.clear();
+    navigate("/login");
+  };
 
   return (
-    <header>
-      <Link to="/create" className="logo">MyPassword</Link>
-      <nav>
-        {username && (
-          <>
-            <Link to="/create">Create new password</Link>
-            <a href="/" onClick={logout}>Logout ({username})</a>
-          </>
-        )}
-        {!username && (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        )}
-      </nav>
-    </header>
+    <div className="navbar">
+      {!cookies.access_token ? (
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/register">Register</Link>
+          <Link to="/login">Login</Link>
+        </div>
+      ) : (
+        <div>
+        <Link to="/">Home</Link>
+
+        {username}
+        <button onClick={logout}> Logout </button>
+        </div>
+
+      )}
+    </div>
   );
-}
+};
+
+export default Header;

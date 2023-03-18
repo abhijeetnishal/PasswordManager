@@ -5,14 +5,16 @@ const CreatePassword = () => {
     const [password, setPassword] = useState('');
     const [btnClick, setBtnClick] =useState(false);
     const [message, setMessage] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
     const createNewPassword = async(e)=>{
         e.preventDefault();
         setBtnClick(true);
-        const response = await fetch('http://localhost:4000/passwords/',{
+        const response = await fetch('http://localhost:4000/passwords',{
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'authorization' : 'cookies.access_token' 
         },
         body: JSON.stringify({
             websiteName,
@@ -23,7 +25,13 @@ const CreatePassword = () => {
 
         if(response.ok) {
             setMessage('Password Saved');
+            setRedirect(true);
+            
         }
+    }
+
+    if(redirect){
+        
     }
 
     const emptyField = ()=>{
@@ -48,7 +56,7 @@ const CreatePassword = () => {
             <div>
                 {
                 btnClick ? 
-                ({message}) :
+                (message) :
                 (<div></div>)
                 }
             </div>

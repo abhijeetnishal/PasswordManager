@@ -5,24 +5,24 @@ import PasswordPage from './components/main/PasswordPage'
 import EditPassword from './components/main/EditPassword'
 import Footer from './components/footer/Footer'
 import LandingPage from './components/main/LandingPage'
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
 import Header from './components/header/Header'
 import ProtectedRoute from './ProtectedRoute'
 
 function App() {
   return(
-      <>
+      <Router>
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path="/create" element={<ProtectedRoute> <CreatePassword /> </ProtectedRoute> }/>
-          <Route path="/post/:id" element={<PasswordPage />} />
-          <Route path="/edit/:id" element={<EditPassword />} />
+          <Route path="/create" element={<ProtectedRoute> <CreatePassword /> </ProtectedRoute>}/>
+          <Route path="/post/:id" element={<ProtectedRoute> <PasswordPage /> </ProtectedRoute>} />
+          <Route path="/edit/:id" element={<ProtectedRoute> <EditPassword /> </ProtectedRoute> } />
         </Routes>
         <Footer/>
-      </>
+      </Router>
   )
 };
 
