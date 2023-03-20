@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 
 const CreatePassword = () => {
+    const cookies = new Cookies();
+    const cookieVal = cookies.get('myCookie');
+
     const [websiteName, setWebsiteName] = useState('');
     const [password, setPassword] = useState('');
     const [btnClick, setBtnClick] =useState(false);
     const [message, setMessage] = useState('');
     const [redirect, setRedirect] = useState(false);
+    
 
     const createNewPassword = async(e)=>{
         e.preventDefault();
@@ -26,12 +32,12 @@ const CreatePassword = () => {
         if(response.ok) {
             setMessage('Password Saved');
             setRedirect(true);
-            
         }
     }
 
+    const userId = cookieVal.id;
     if(redirect){
-        
+        <Navigate to={`post/${userId}`}></Navigate>
     }
 
     const emptyField = ()=>{

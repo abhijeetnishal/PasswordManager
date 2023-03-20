@@ -1,21 +1,34 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
 const Header = () => {
-  const [cookies, setCookies] = useCookies(["access_token"]);
+  const cookies = new Cookies();
+  const cookieValue = cookies.get('myCookie');
+  const userName = cookieValue?.username;
   const navigate = useNavigate();
-  const username = cookies.access_token?.username;
 
   const logout = () => {
-    setCookies("access_token", "");
+    const fetchData = async () => {
+      // get the data from the api
+      await fetch('http://localhost:4000/api/auth/logout',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      })
+    }
+    fetchData();
+    cookies.remove('myCookie', { path: '/' });
+
     window.localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <div className="navbar">
-      {!cookies.access_token ? (
+      {!userName ? (
         <div>
           <Link to="/">Home</Link>
           <Link to="/register">Register</Link>
@@ -24,8 +37,7 @@ const Header = () => {
       ) : (
         <div>
         <Link to="/">Home</Link>
-
-        {username}
+        {userName}
         <button onClick={logout}> Logout </button>
         </div>
 

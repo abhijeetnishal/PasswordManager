@@ -1,17 +1,18 @@
 import React from 'react'
 import { useState} from 'react'
 import { Navigate } from 'react-router-dom'
-import { useCookies } from "react-cookie"
+import { Cookies } from "react-cookie"
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //eslint-disable-next-line
-  const [_, setCookies] = useCookies(["access_token"]); 
+  const cookies = new Cookies();
 
   const [btnClick, setBtnClick] = useState(false);
   const [message, setMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [userId, setUserId] = useState('');
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -29,14 +30,16 @@ const Login = () => {
 
     if(response.ok) {
       await response.json().then(userInfo => {
-      //console.log(userInfo);
-        
-      setCookies("access_token", userInfo);
-      window.localStorage.setItem("userID", userInfo.id);
+        cookies.set('myCookie', userInfo, { path: '/' }); 
+        const cookieValue = cookies.get('myCookie');
+
+        window.localStorage.setItem("userID", userInfo.id);
 
         setMessage(userInfo.username);
 
         setRedirect(true);
+
+        setUserId(cookieValue.id)
         setBtnClick(true);
       });
     }
@@ -63,7 +66,7 @@ const Login = () => {
   }
 
   if(redirect){
-    return <Navigate to={'/create'} />
+    return <Navigate to={`/post/${userId}`} />
   }
   
   return (
