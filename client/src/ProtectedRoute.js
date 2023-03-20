@@ -1,11 +1,12 @@
 import { Navigate } from 'react-router-dom';
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
 const ProtectedRoute = ({children}) => {
-        //eslint-disable-next-line
-        const [cookies, setCookies] = useCookies(["access_token"]);
+        const cookies = new Cookies();
 
-        return cookies.access_token ? children : <Navigate to = '/login' />
+        const cookieValue = cookies.get('myCookie');
+
+        return cookieValue ? children : <Navigate to = '/login' />
 
 }
 

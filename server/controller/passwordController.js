@@ -15,10 +15,10 @@ const getAllPasswords = async (req, res)=>{
         //         return res.json("Not autenticated");
         //     //encrypt data
         //     else{
-                const data = await passwordModel.find({userId:id}).select({ websiteName: 1, password: 1, _id: 0 });
+                const data = await passwordModel.find({userId:id}).select({ websiteName: 1, password: 1, _id: 1 });
                 res.status(202).json(data);
-            //}
-        //})
+        //     }
+        //  })
     }
     catch(error){
         res.status(500).json({message:"Internal Server Error"});
