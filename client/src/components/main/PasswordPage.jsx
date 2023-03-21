@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import DeleteConfirmation from './DeleteConfirmation';
 import { Cookies } from 'react-cookie'
+import EditPassword from './EditPassword';
 
 const PasswordPage = () => {
     const cookies = new Cookies();
@@ -7,6 +9,10 @@ const PasswordPage = () => {
     const [data, setData] = useState(null);
     const [decryptedPassword, setDecryptedPassword] = useState(null);
     //const [showBtn, setShowBtn] = useState(true);
+    const [showPopUpDelete, setShowPopUpDelete] = useState(false);
+    const [showPopUpEdit, setShowPopUpEdit] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const [editId, setEditId] = useState(null);
 
     const userId = cookieValue.id;
 
@@ -26,7 +32,56 @@ const PasswordPage = () => {
         .catch(console.error);
         //eslint-disable-next-line
     }, [])
+
+    async function decrypt(passwordId){
+        //setShowBtn(false);
+        const response = await fetch(`http://localhost:4000/passwords/specific/${passwordId}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
+        const passwordData = await response.json();
+        //console.log(passwordData);
+        setDecryptedPassword(passwordData);
+    }
      
+    function handleDeleteClick(passwordId){
+        setShowPopUpDelete(true);
+        setDeleteId(passwordId);
+    }
+
+    function handleEditClick(passwordId){
+        setShowPopUpEdit(true);
+        setEditId(passwordId);
+    }
+
+    function handleCloseDialogDelete(){
+        setShowPopUpDelete(false);
+    }
+
+    function handleCloseDialogEdit(){
+        setShowPopUpEdit(false);
+    }
+
+    async function handleConfirmationDelete(passwordId){
+        const response = await fetch(`http://localhost:4000/passwords/${passwordId}`,{
+            method: 'DELETE',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+        const passwordData = response.json();
+        console.log(passwordData);
+        window.location.reload(false);
+    }
+
+    async function handleConfirmationEdit(passwordId){
+
+    }
 
     return (
         <div>
@@ -37,27 +92,36 @@ const PasswordPage = () => {
                 data.map((mainData, index) => (
                     <div key={index}>
                         <div>
-                        <div>Website Name: {mainData.websiteName}</div>
-                        <div>
-                        {decryptedPassword && decryptedPassword.websiteName===mainData.websiteName ? decryptedPassword.decryptedPassword : '***********'}
-                        </div>
-                        <button onClick={
-                            async ()=>{
-                                //setShowBtn(false);
-                                const response = await fetch(`http://localhost:4000/passwords/specific/${mainData._id}`,{
-                                    method: 'GET',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    credentials: 'include',
-                                });
-
-                                const passwordData = await response.json();
-                                //console.log(passwordData);
-                                setDecryptedPassword(passwordData);
+                            <div>
+                                <button onClick={()=>handleEditClick(mainData._id)}>Edit</button>
+                                {
+                                    (showPopUpEdit && editId===mainData._id) && (
+                                        <EditPassword
+                                            item = {mainData.websiteName}
+                                            onClose={handleCloseDialogEdit}
+                                            onConfirm={()=>handleConfirmationEdit(mainData._id)}
+                                        />
+                                    )
+                                }
+                            </div>
+                            <div>
+                            <button onClick={()=>handleDeleteClick(mainData._id)}>Delete</button>
+                            {
+                                (showPopUpDelete && deleteId===mainData._id) && (
+                                    <DeleteConfirmation
+                                        item={mainData.websiteName}
+                                        onClose={handleCloseDialogDelete}
+                                        onConfirm={()=>handleConfirmationDelete(mainData._id)}
+                                    />
+                                )
                             }
-                            }>  Decrypt
-                        </button>
+                            </div>
+                            <div>Website Name: {mainData.websiteName}</div>
+                            <div>
+                            {decryptedPassword && decryptedPassword.id===mainData._id ? decryptedPassword.decryptedPassword : '***********'}
+                            </div>
+                            <button onClick={()=> decrypt(mainData._id) }>  Decrypt
+                            </button>
                         </div>
                     </div>
                 ))) : 

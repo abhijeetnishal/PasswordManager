@@ -9,7 +9,7 @@ const signup = async(req,res)=>{
     //2. Hashed password
     //3. user creation
     //4. token generation
-
+    
     //create a new user instance and collect the data
     const {username, email, password} = req.body;
 
@@ -77,17 +77,8 @@ const login = async (req,res)=>{
     }
 }
 
-const profile = (req, res)=>{
-    const {token} = req.cookies;
-    jwt.verify(token, process.env.SecretKey, {}, (err,info) => {
-        if(err) 
-            throw err;
-        res.json(info);
-    });
-}
-
 const logout = (req, res)=>{
-    res.cookie('token', '').json('logout');
+    res.clearCookie('token').json('logout');
 }
 
-module.exports = {signup, login, profile, logout};
+module.exports = {signup, login, logout};
