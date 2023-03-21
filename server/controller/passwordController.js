@@ -85,12 +85,12 @@ const createPassword = async (req,res)=>{
 const updatePassword = async (req,res)=>{
     const id = req.params.id;
     const {websiteName, password} = req.body;
-    const {token} = req.cookies;
+    //const {token} = req.cookies;
 
     try{
-        jwt.verify(token, secretKey, {}, async(err, info)=>{
-            if(err)
-                return res.json("Not autenticated");
+        // jwt.verify(token, secretKey, {}, async(err, info)=>{
+        //     if(err)
+        //         return res.json("Not autenticated");
             //encrypt data
             const data = await crypto.encrypt(password);
             
@@ -105,7 +105,7 @@ const updatePassword = async (req,res)=>{
             }
             await passwordModel.findByIdAndUpdate(id, newPassword, {new: true});
             res.status(200).json(newPassword);
-        });
+        //});
     }
     catch(error){
         console.log(error);
