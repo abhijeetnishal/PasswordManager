@@ -6,17 +6,13 @@ import EditPassword from './EditPassword';
 const PasswordPage = () => {
     const cookies = new Cookies();
     const cookieValue = cookies.get('myCookie');
-    
     const [data, setData] = useState(null);
     const [decryptedPassword, setDecryptedPassword] = useState(null);
-    const [showBtn, setShowBtn] = useState(false);
+    //const [showBtn, setShowBtn] = useState(true);
     const [showPopUpDelete, setShowPopUpDelete] = useState(false);
     const [showPopUpEdit, setShowPopUpEdit] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
     const [editId, setEditId] = useState(null);
-    const [updateData, setUpdateData] = useState({websiteName:'', password:''});
-    const [updateBtnClick, setUpdateBtnClick] = useState(false);
-    const [dataLength, setDataLength] = useState(0);
 
     const userId = cookieValue.id;
 
@@ -28,19 +24,17 @@ const PasswordPage = () => {
         // convert the data to json
         const data = await response.json();
         setData(data);
-        setDataLength(data.length);
-        //console.log(data);
     }
     
     // call the function
     fetchData()
         // make sure to catch any error
         .catch(console.error);
-    //eslint-disable-next-line
+        //eslint-disable-next-line
     }, [])
 
     async function decrypt(passwordId){
-        showHidebtn();
+        //setShowBtn(false);
         const response = await fetch(`http://localhost:4000/passwords/specific/${passwordId}`,{
             method: 'GET',
             headers: {
@@ -72,10 +66,6 @@ const PasswordPage = () => {
         setShowPopUpEdit(false);
     }
 
-    function showHidebtn(){
-        setShowBtn(!showBtn);
-    }
-
     async function handleConfirmationDelete(passwordId){
         const response = await fetch(`http://localhost:4000/passwords/${passwordId}`,{
             method: 'DELETE',
@@ -89,47 +79,16 @@ const PasswordPage = () => {
         window.location.reload(false);
     }
 
-    useEffect(() => {
-        setUpdateData(updateData);
-        //console.log(updateData);
+    async function handleConfirmationEdit(passwordId){
 
-        const websiteName = updateData.websiteName;
-        const password = updateData.password;
-        if(websiteName!=='' && password!=='' && updateBtnClick){
-            console.log(updateData);
-            const fetchData = async () => {
-                // get the data from the api
-                const response = await fetch(`http://localhost:4000/passwords/${editId}`,{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        websiteName,
-                        password
-                    }),
-                    credentials: 'include',
-                });
-                const data = response.json();
-                console.log(data);
-            }
-            
-            // call the function
-            fetchData()
-            // make sure to catch any error
-            .catch(console.error);
-            
-            window.location.reload(false);
-        }
-        //eslint-disable-next-line
-      }, [updateData]);
+    }
 
     return (
         <div>
             <div>My Passwords</div>
             <div>
                 {
-                (dataLength) ? (
+                data ? (
                 data.map((mainData, index) => (
                     <div key={index}>
                         <div>
@@ -140,8 +99,7 @@ const PasswordPage = () => {
                                         <EditPassword
                                             item = {mainData.websiteName}
                                             onClose={handleCloseDialogEdit}
-                                            editData = {setUpdateData}
-                                            updateBtn = {setUpdateBtnClick}
+                                            onConfirm={()=>handleConfirmationEdit(mainData._id)}
                                         />
                                     )
                                 }
@@ -160,17 +118,16 @@ const PasswordPage = () => {
                             </div>
                             <div>Website Name: {mainData.websiteName}</div>
                             <div>
-                            {(showBtn && decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
+                            {decryptedPassword && decryptedPassword.id===mainData._id ? decryptedPassword.decryptedPassword : '***********'}
                             </div>
-                            <button onClick={()=> decrypt(mainData._id)}>  {showBtn ? 'hide' : 'show'}
+                            <button onClick={()=> decrypt(mainData._id) }>  Decrypt
                             </button>
                         </div>
                     </div>
                 ))) : 
                 (
                     <div>
-                        You haven't saved any password.
-                    </div>       
+                    </div>
                 )
                 }
             </div>
