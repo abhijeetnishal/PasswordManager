@@ -66,7 +66,7 @@ const Login = () => {
   }
 
   if(redirect){
-    return <Navigate to={`/post/${userId}`} />
+    return <Navigate to={`/view/${userId}`} />
   }
   
   return (

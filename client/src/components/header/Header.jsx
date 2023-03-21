@@ -6,6 +6,7 @@ const Header = () => {
   const cookies = new Cookies();
   const cookieValue = cookies.get('myCookie');
   const userName = cookieValue?.username;
+  const userId = cookieValue?.id;
   const navigate = useNavigate();
 
   const logout = () => {
@@ -37,6 +38,8 @@ const Header = () => {
       ) : (
         <div>
         <Link to="/">Home</Link>
+        <Link to='/create'> Create Password </Link>
+        <Link to={`/view/${userId}`}>View Passwords</Link>
         {userName}
         <button onClick={logout}> Logout </button>
         </div>

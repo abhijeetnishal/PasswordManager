@@ -7,6 +7,7 @@ import Footer from './components/footer/Footer'
 import LandingPage from './components/main/LandingPage'
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
 import Header from './components/header/Header'
+import ErrorPage from './components/errorPage/ErrorPage'
 import ProtectedRoute from './ProtectedRoute'
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path="/create" element={<ProtectedRoute> <CreatePassword /> </ProtectedRoute>}/>
-          <Route path="/post/:id" element={<ProtectedRoute> <PasswordPage /> </ProtectedRoute>} />
+          <Route path="/view/:id" element={<ProtectedRoute> <PasswordPage /> </ProtectedRoute>} />
           <Route path="/edit/:id" element={<ProtectedRoute> <EditPassword /> </ProtectedRoute> } />
+          <Route path='*' element={<ErrorPage/>} />
         </Routes>
         <Footer/>
       </Router>

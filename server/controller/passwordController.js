@@ -35,11 +35,12 @@ const getPassword = async (req,res)=>{
         else{
             const websiteName = data.websiteName;
             const password = data.password;
+            const id = data._id;
             const iv = data.iv;
     
             const decryptedPassword = await crypto.decrypt(password, iv);
     
-            res.status(200).json({websiteName, decryptedPassword});
+            res.status(200).json({websiteName, decryptedPassword, id});
         }
     }
     catch(error){
@@ -114,22 +115,20 @@ const updatePassword = async (req,res)=>{
 
 const deletePassword = async (req,res)=>{
     const id = req.params.id;
-    const {token} = req.cookies;
     try{
-        jwt.verify(token, secretKey, {}, async(err, info)=>{
-            if(err)
-                throw err;
+        // jwt.verify(token, secretKey, {}, async(err, info)=>{
+        //     if(err)
+        //         throw err;
             
             const password = await passwordModel.findByIdAndRemove(id);
-            res.status(202).json(password);
-        })
+            res.status(202).json('Password Deleted');
+        // })
     }
     catch(error){
         console.log(error);
         res.status(500).json({message:"Internal Server Error"});
     }
 }
-
 
 module.exports = {
     getAllPasswords,
