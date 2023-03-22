@@ -45,7 +45,7 @@ app.use('/api/auth',userRouter)
 const passwordRouter = require('./routes/passwordRoutes')
 app.use('/passwords',passwordRouter)
 
-//Error Handling
-const {notFound, errorHandler} = require('./middleware/errorMiddleware');
-app.use(notFound);
-app.use(errorHandler);
+app.get('/',(req, res)=>{
+  //res.cookie('cookieName', 'cookieValue', { sameSite: 'none', secure: true});
+  res.send('<h2>Server is Live</h2>');
+})

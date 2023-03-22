@@ -16,11 +16,10 @@ const CreatePassword = () => {
     const createNewPassword = async(e)=>{
         e.preventDefault();
         setBtnClick(true);
-        const response = await fetch('http://localhost:4000/passwords',{
+        const response = await fetch('https://passwordmanager-nbfr.onrender.com/passwords',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'authorization' : 'cookies.access_token' 
         },
         body: JSON.stringify({
             websiteName,

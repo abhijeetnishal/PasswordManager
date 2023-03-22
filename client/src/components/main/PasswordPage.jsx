@@ -24,7 +24,7 @@ const PasswordPage = () => {
     // declare the async data fetching function
     const fetchData = async () => {
         // get the data from the api
-        const response = await fetch(`http://localhost:4000/passwords/all/${userId}`);
+        const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/all/${userId}`);
         // convert the data to json
         const data = await response.json();
         setData(data);
@@ -41,7 +41,7 @@ const PasswordPage = () => {
 
     async function decrypt(passwordId){
         showHidebtn();
-        const response = await fetch(`http://localhost:4000/passwords/specific/${passwordId}`,{
+        const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/specific/${passwordId}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,16 +77,22 @@ const PasswordPage = () => {
     }
 
     async function handleConfirmationDelete(passwordId){
-        const response = await fetch(`http://localhost:4000/passwords/${passwordId}`,{
+        const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/${passwordId}`,{
             method: 'DELETE',
             headers:{
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-        });
-        const passwordData = response.json();
-        console.log(passwordData);
-        window.location.reload(false);
+            });
+
+        response.json().then(data => ({
+            data: data,
+            status: response.status
+        })
+        ).then(res => {
+            //console.log(res.status, res.data);
+            window.location.reload(false);
+        })
     }
 
     useEffect(() => {
@@ -96,10 +102,10 @@ const PasswordPage = () => {
         const websiteName = updateData.websiteName;
         const password = updateData.password;
         if(websiteName!=='' && password!=='' && updateBtnClick){
-            console.log(updateData);
+            //console.log(updateData);
             const fetchData = async () => {
                 // get the data from the api
-                const response = await fetch(`http://localhost:4000/passwords/${editId}`,{
+                const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/${editId}`,{
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -110,16 +116,19 @@ const PasswordPage = () => {
                     }),
                     credentials: 'include',
                 });
-                const data = response.json();
-                console.log(data);
+                response.json().then(data => ({
+                    data: data,
+                })
+                ).then(res => {
+                    //console.log(res.data);
+                    window.location.reload(false);
+                })
             }
             
             // call the function
             fetchData()
             // make sure to catch any error
             .catch(console.error);
-            
-            window.location.reload(false);
         }
         //eslint-disable-next-line
       }, [updateData]);

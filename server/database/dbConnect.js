@@ -1,9 +1,11 @@
 //require mongoose and env with the following code:
 const mongoose = require("mongoose");
 
+
 //Create and export a function to house the connection:
 async function dbConnect() {
   //use mongoose to connect this app to our database on mongoDB using the DB_URL (connection string)
+  mongoose.set('strictQuery', true);
   mongoose.connect(
       process.env.DB_URL,
       {

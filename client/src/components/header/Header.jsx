@@ -1,4 +1,6 @@
 import React from "react";
+import headerLock from '../../assets/lockHeader.png'
+import '../../styles/Header.css'
 import { Link, useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 
@@ -12,7 +14,7 @@ const Header = () => {
   const logout = () => {
     const fetchData = async () => {
       // get the data from the api
-      await fetch('http://localhost:4000/api/auth/logout',{
+      await fetch('https://passwordmanager-nbfr.onrender.com/api/auth/logout',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,10 +32,12 @@ const Header = () => {
   return (
     <div className="navbar">
       {!userName ? (
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
+        <div className="noAuthNavbar">
+          <img className="headerLock" src={headerLock} alt="" />
+          <Link className="keySafeIcon" to="/">Key Safe</Link>
+          <div className="headerLoginBtn">
+            <Link className="headerLoginIcon" to="/login">Login</Link>
+          </div>
         </div>
       ) : (
         <div>

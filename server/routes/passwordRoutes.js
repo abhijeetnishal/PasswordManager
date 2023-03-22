@@ -1,13 +1,13 @@
 const express = require('express');
 
-const { getAllPasswords, getPassword, createPassword, deletePassword, updatePassword } = require('../controller/passwordController');
+const { getAllPasswords, decryptPassword, createPassword, deletePassword, updatePassword } = require('../controller/passwordController');
 
 
 const passwordRouter = express.Router();
 
 passwordRouter.get('/all/:id', getAllPasswords);
 
-passwordRouter.get('/specific/:id', getPassword);
+passwordRouter.get('/specific/:id', decryptPassword);
 
 passwordRouter.post('/', createPassword);
 
