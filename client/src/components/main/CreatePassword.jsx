@@ -54,7 +54,7 @@ const CreatePassword = () => {
                 (<button onClick={createNewPassword}>Save Password</button>) :
                 (
                 <div>
-                    <button onClick={emptyField}>Save Password</button>
+                    <button onClick={emptyField}>Save Password</button>;
                 </div>
                 )
             }

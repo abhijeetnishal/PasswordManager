@@ -3,7 +3,7 @@ import Login from './components/auth/Login'
 import CreatePassword from './components/main/CreatePassword'
 import PasswordPage from './components/main/PasswordPage'
 import LandingPage from './components/main/LandingPage'
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
 import Header from './components/header/Header'
 import ErrorPage from './components/errorPage/ErrorPage'
 import ProtectedRoute from './ProtectedRoute'
