@@ -11,7 +11,7 @@ import React from 'react'
 
 function App() {
   return(
-      <React.Fragment>
+      <Router>
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -21,7 +21,7 @@ function App() {
           <Route path="/view/:id" element={<ProtectedRoute> <PasswordPage /> </ProtectedRoute>} />
           <Route path='*' element={<ErrorPage/>} />
         </Routes>
-      </React.Fragment>
+      </Router>
   )
 };
 
