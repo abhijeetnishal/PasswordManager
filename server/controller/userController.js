@@ -5,10 +5,6 @@ const jwt = require('jsonwebtoken')
 const User = require('../database/userModel');
 
 const signup = async(req,res)=>{
-    //1. existing user check
-    //2. Hashed password
-    //3. user creation
-    //4. token generation
     
     //create a new user instance and collect the data
     const {username, email, password} = req.body;
@@ -60,7 +56,7 @@ const login = async (req,res)=>{
             jwt.sign({email, id:userExist._id}, process.env.SecretKey, {}, (err,token) => {
                 if(err) 
                     throw err;
-                res.cookie('token', token).json({
+                res.cookie('token', token, { sameSite: 'none', secure: true} ).json({
                   id:userExist._id,
                   username,
                   email,
