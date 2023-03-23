@@ -2,6 +2,7 @@ import React from 'react'
 import { useState} from 'react'
 import { Navigate } from 'react-router-dom'
 import { Cookies } from "react-cookie"
+import '../../styles/Register.css'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -52,7 +53,7 @@ const Login = () => {
 
   const emptyFieldFunc = ()=>{
     setBtnClick(true);
-    setMessage('please enter all details')
+    setMessage('Please enter all details')
   }
 
   const validateEmail = (email)=> {
@@ -70,26 +71,26 @@ const Login = () => {
   }
   
   return (
-    <div>
-      <div>Login</div>
+      <div className='container'>
+      <div className="login form">
+      <header>Login</header>
+      <form>
+        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" />
+        <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" />
+      </form>
       <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} /> <br />
-        <label htmlFor="password">Password</label>
-        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} /> <br />
-      </div>
       {
         (validateEmail(email) && password) ? (
-          <button type='submit' onClick={handleSubmit} >Login</button>
+          <input type='button' className='button' onClick={handleSubmit} value='Login' />
         ) : 
         (<div> {
             !email || !password ? (
-              <button type='submit' onClick={emptyFieldFunc} >Login</button>
+              <input type='button' className='button' onClick={emptyFieldFunc} value='Login' />
               ) : ( 
                 <div>
                   {
                     !validateEmail(email) ? 
-                    (<button type='submit' onClick={invalidEmail}>Login</button>):(
+                    (<input type='button' className='button' onClick={invalidEmail} value='Login' />):(
                       <div> </div>  
                     )
                   }
@@ -98,17 +99,24 @@ const Login = () => {
           }
         </div>)
         }
-        <div>
+        <div className='messageDiv'>
           {
             btnClick?
-            (<div>
+            (<div className='message'>
               {message}
             </div>):
             (<div>
             </div>)
           }
-          </div>
-    </div>
+        </div>
+      </div>
+      <div className="signup">
+        <span className="signup">Don't have an account?
+         <a href='/register' >Register</a>
+        </span>
+      </div>
+      </div>
+      </div>
   )
 }
 

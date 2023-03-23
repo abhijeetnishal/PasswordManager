@@ -66,6 +66,8 @@
 
         background: #30AFB5;
         border-radius: 4px;
+
+        text-decoration: none;
     }
     .getStartedIcon{
         width: 91px;

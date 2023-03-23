@@ -40,14 +40,16 @@ const Header = () => {
           </div>
         </div>
       ) : (
-        <div>
-        <Link to="/">Home</Link>
-        <Link to='/create'> Create Password </Link>
-        <Link to={`/view/${userId}`}>View Passwords</Link>
-        {userName}
-        <button onClick={logout}> Logout </button>
+        <div className="noAuthNavbar">
+          <img className="headerLock" src={headerLock} alt="" />
+          <Link className="keySafeIcon" to="/">Key Safe</Link>
+          <Link className="createIcon" to='/create'> Create </Link>
+          <Link className="viewIcon" to={`/view/${userId}`}>View</Link>
+           <div className="userName"> {userName} </div>
+            <div className="headerLoginBtn">
+              <Link to='/' className="headerLoginIcon" onClick={logout}>Logout</Link>
+            </div>
         </div>
-
       )}
     </div>
   );

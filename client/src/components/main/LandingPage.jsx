@@ -18,10 +18,10 @@ const LandingPage = () => {
         <div className='getStartedinfo-2'>
           Only you can see your personal data. All your password within a reach so you don’t have to crack your head to remember them.
         </div>
-        <button className='getStartedBtn'>
+        <a href='/register' className='getStartedBtn'>
           <div className='getStartedIcon'> Get Started </div>
           <img className='rightArrow' src={rightArrow} alt="" />
-        </button>
+        </a>
       </div>
         <div className='subMoreInfo-1'>
           <img className='subMoreInfo-1-image' src={subMoreInfoImg1} alt="" />

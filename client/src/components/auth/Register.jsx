@@ -35,7 +35,7 @@ const Register = () => {
 
   const emptyFieldFunc = ()=>{
       setBtnClick(true);
-      setMessage('please enter all details')
+      setMessage('Please enter all details')
   }
 
   const validateEmail = (email)=> {
@@ -53,26 +53,26 @@ const Register = () => {
   }
 
   return (
-    <div>
-      <div className='signup'> 
-      <div>Signup</div>
-        <label htmlFor="username" >Username:</label>
-        <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} /> <br />
-        <label htmlFor="email">Email:</label>
-        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} /> <br />
-        <label htmlFor="password">Password:</label>
-        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} /> <br />
-        {
+    <div className='container'>
+      <div className="registration form">
+      <header>Register</header>
+      <form>
+        <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} placeholder="Enter your name" />
+        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" />
+        <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" />
+      </form>
+      <div>
+      {
         (username && validateEmail(email) && password) ? (
-          <button type='submit' onClick={handleSubmit} >Signup</button>
+          <input type='button' className="button" onClick={handleSubmit} value='Register' />
         ) : (<div> {
             !username || !email || !password ? (
-              <button type='submit' onClick={emptyFieldFunc} >Signup</button>
+              <input type='button' className="button" onClick={emptyFieldFunc} value='Register' />
               ) : ( 
                 <div>
                   {
                     !validateEmail(email) ? 
-                    (<button type='submit' onClick={invalidEmail} >Signup</button>):
+                    (<input type='button' className='button' onClick={invalidEmail} value='Register' />):
                     (
                       <div> </div>  
                     )
@@ -80,12 +80,13 @@ const Register = () => {
                 </div>
               )
           }
-        </div>)
+          </div>
+        )
         }
-        <div>
+        <div className='messageDiv'>
           {
             btnClick?
-            (<div>
+            (<div className='message'>
               {message}
             </div>):
             (<div>
@@ -93,7 +94,13 @@ const Register = () => {
           }
         </div>
       </div>
-    </div>
+      <div className="signup">
+        <span className="signup">Already have an account?
+         <a href='/login'>Login</a>
+        </span>
+      </div>
+      </div>
+      </div>
   )
 }
 
