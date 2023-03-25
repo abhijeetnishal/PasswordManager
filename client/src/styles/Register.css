@@ -63,7 +63,7 @@ input.button:hover{
 .signup{
   font-size: 17px;
   text-align: center;
-  padding-top: 30px;
+  padding-top: 60px;
 }
 .signup label{
   color: #009579;
@@ -78,8 +78,18 @@ input.button:hover{
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 30px;
 }
 .message{
   text-align: center;
   color: red;
+}
+@media only screen and (max-width: 480px){
+  .container{
+    position: absolute;
+    left: 240px;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

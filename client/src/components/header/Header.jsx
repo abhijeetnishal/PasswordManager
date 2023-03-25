@@ -1,5 +1,6 @@
 import React from "react";
 import headerLock from '../../assets/lockHeader.png'
+import profilePhoto from '../../assets/user.png'
 import '../../styles/Header.css'
 import { Link, useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
@@ -45,6 +46,7 @@ const Header = () => {
           <Link className="keySafeIcon" to="/">Key Safe</Link>
           <Link className="createIcon" to='/create'> Create </Link>
           <Link className="viewIcon" to={`/view/${userId}`}>View</Link>
+          <img className="profilePhoto" src={profilePhoto} alt="" />
            <div className="userName"> {userName} </div>
             <div className="headerLoginBtn">
               <Link to='/' className="headerLoginIcon" onClick={logout}>Logout</Link>

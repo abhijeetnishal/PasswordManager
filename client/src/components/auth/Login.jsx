@@ -3,6 +3,7 @@ import { useState} from 'react'
 import { Navigate } from 'react-router-dom'
 import { Cookies } from "react-cookie"
 import '../../styles/Register.css'
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,8 +15,11 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [userId, setUserId] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async(e)=>{
+    setIsLoading(true);
+    setBtnClick(true);
     e.preventDefault();
     const response = await fetch('https://passwordmanager-nbfr.onrender.com/api/auth/login',{
       method: 'POST',
@@ -46,6 +50,7 @@ const Login = () => {
     }
     else{
       const data = await response.json();
+      setIsLoading(false);
       setBtnClick(true);
       setMessage(data.message);
     }
@@ -81,16 +86,16 @@ const Login = () => {
       <div>
       {
         (validateEmail(email) && password) ? (
-          <input type='button' className='button' onClick={handleSubmit} value='Login' />
+          <input type='button' className='button' onClick={handleSubmit} disabled={isLoading} value='Login' />
         ) : 
         (<div> {
             !email || !password ? (
-              <input type='button' className='button' onClick={emptyFieldFunc} value='Login' />
+              <input type='button' className='button' onClick={emptyFieldFunc} disabled={isLoading} value='Login' />
               ) : ( 
                 <div>
                   {
                     !validateEmail(email) ? 
-                    (<input type='button' className='button' onClick={invalidEmail} value='Login' />):(
+                    (<input type='button' className='button' onClick={invalidEmail} disabled={isLoading} value='Login' />):(
                       <div> </div>  
                     )
                   }
@@ -103,7 +108,9 @@ const Login = () => {
           {
             btnClick?
             (<div className='message'>
-              {message}
+              {
+                isLoading ? (<LoadingSpinner/>) : (message)
+              }
             </div>):
             (<div>
             </div>)

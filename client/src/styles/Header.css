@@ -1,10 +1,130 @@
+.navbar{
+    padding-bottom: 80px;
+}
+.noAuthNavbar{
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    left: 0px;
+    top: 0px;
+
+    background-color: #59C5D0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+}
+.headerLock{
+    position: absolute;
+    width: 21.97px;
+    height: 30px;
+    left: 23px;
+    top: 25px;
+}
+.keySafeIcon{
+    position: absolute;
+    width: 68px;
+    height: 22px;
+    left: 65px;
+    top: 33px;
+
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #FFFFFF;
+}
+.headerLoginBtn{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 74px;
+    height: 40px;
+    left: 1330px;
+    top: 20px;
+
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+}
+.headerLoginIcon{
+    position: absolute;
+    width: 44px;
+    height: 30px;
+    left: 10px;
+    top: 5px;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 30px;
+    /* identical to box height, or 188% */
+
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.createIcon{
+    position: absolute;
+    width: 68px;
+    height: 22px;
+    left: 329px;
+    top: 33px;
+
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 22px;
+
+}
+.viewIcon{
+    position: absolute;
+    width: 68px;
+    height: 22px;
+    left: 486px;
+    top: 33px;
+
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 22px;
+}
+.profilePhoto{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 32px;
+    left: 1210px;
+}
+.userName{
+    position: absolute;
+    width: 90px;
+    height: 45px;
+    left: 1240px;
+    top: 33px;
+
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+
 @media only screen and (max-width: 480px) {
     .navbar{
         padding-bottom: 80px;
     }
     .noAuthNavbar{
         position: absolute;
-        width: 393px;
+        width: 480px;
         height: 80px;
         left: 0px;
         top: 0px;
@@ -43,7 +163,7 @@
         position: absolute;
         width: 74px;
         height: 40px;
-        left: 310px;
+        left: 385px;
         top: 20px;
 
         border: 1px solid #FFFFFF;
@@ -78,7 +198,7 @@
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 22px;
 
     }
@@ -86,29 +206,37 @@
         position: absolute;
         width: 68px;
         height: 22px;
-        left: 186px;
+        left: 190px;
         top: 33px;
 
         text-decoration: none;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 22px;
     }
+
+    .profilePhoto{
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: 34px;
+        left: 275px;
+    }
+
     .userName{
         position: absolute;
         width: 68px;
         height: 22px;
-        left: 240px;
+        left: 298px;
         top: 33px;
 
         text-decoration: none;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 19px;
         line-height: 22px;
     }
 }
-
