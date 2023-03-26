@@ -170,7 +170,7 @@
     top: 1023px;
 }
 
-@media only screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
 
     .getStarted{
         width: 480px;
