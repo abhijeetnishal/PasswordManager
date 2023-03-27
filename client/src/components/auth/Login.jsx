@@ -1,6 +1,5 @@
-import React from 'react'
 import { useState} from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Cookies } from "react-cookie"
 import '../../styles/Register.css'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
@@ -119,7 +118,7 @@ const Login = () => {
       </div>
       <div className="signup">
         <span className="signup">Don't have an account?
-         <a href='/register' >Register</a>
+         <Link to='/register' >Register</Link>
         </span>
       </div>
       </div>

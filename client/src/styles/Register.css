@@ -9,8 +9,8 @@
 .container{
   position: absolute;
   top: 10rem;
-  left: 10%;
-  max-width: 480px;
+  left: 5rem;
+  max-width: 450px;
   width: 100%;
   background: #fff;
   border-radius: 7px;

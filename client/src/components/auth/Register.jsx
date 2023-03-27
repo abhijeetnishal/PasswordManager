@@ -1,6 +1,5 @@
-import React from 'react'
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import '../../styles/Register.css'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
 
@@ -102,7 +101,7 @@ const Register = () => {
       </div>
       <div className="signup">
         <span className="signup">Already have an account?
-         <a href='/login'>Login</a>
+         <Link to='/login'>Login</Link>
         </span>
       </div>
       </div>

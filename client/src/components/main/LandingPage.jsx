@@ -4,6 +4,7 @@ import getStartedImage from '../../assets/getStartedImage.png'
 import rightArrow from '../../assets/rightArrow.png'
 import subMoreInfoImg1 from '../../assets/subMoreInfoImg1.png'
 import subMoreInfoImg2 from '../../assets/subMoreInfoImg2.png'
+import {Link} from 'react-router-dom'
 
 const LandingPage = () => {
   return (
@@ -18,10 +19,10 @@ const LandingPage = () => {
         <div className='getStartedinfo-2'>
           Only you can see your personal data. All your password within a reach so you don’t have to crack your head to remember them.
         </div>
-        <a href='/register' className='getStartedBtn'>
+        <Link to='/register'  className='getStartedBtn'>
           <div className='getStartedIcon'> Get Started </div>
           <img className='rightArrow' src={rightArrow} alt="" />
-        </a>
+        </Link>
       </div>
         <div className='subMoreInfo-1'>
           <img className='subMoreInfo-1-image' src={subMoreInfoImg1} alt="" />
