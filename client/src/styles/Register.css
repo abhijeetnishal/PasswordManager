@@ -8,10 +8,9 @@
 }
 .container{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  max-width: 370px;
+  top: 10rem;
+  left: 10%;
+  max-width: 480px;
   width: 100%;
   background: #fff;
   border-radius: 7px;
@@ -83,13 +82,4 @@ input.button:hover{
 .message{
   text-align: center;
   color: red;
-}
-@media only screen and (max-width: 480px){
-  .container{
-    position: absolute;
-    left: 240px;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
