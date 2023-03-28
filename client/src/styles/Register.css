@@ -7,11 +7,16 @@
   font-family: 'Poppins', sans-serif;
 }
 .container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 10rem;
-  left: 5rem;
-  max-width: 450px;
-  width: 100%;
+  top: 18%;
+  left: 18%;
+  right: 12%;
+  min-width: 330px;
+  max-width: 430px;
+
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
