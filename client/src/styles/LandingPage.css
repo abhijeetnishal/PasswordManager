@@ -1,9 +1,13 @@
+.landingPage{
+    min-height:100%;
+    position:relative;
+    padding-bottom: 80rem;
+}
 .getStarted{
     position: absolute;
     width: 100%;
     height: 589px;
     left: 0px;
-    top: 80px;
 
     background: rgba(255, 237, 187, 0.4);
 }
