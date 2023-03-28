@@ -17,7 +17,7 @@ const LandingPage = () => {
           Transparent & Secured
         </div>
         <div className='getStartedinfo-2'>
-          Only you can see your personal data. All your password within a reach so you don’t have to crack your head to remember them.
+          Only you can see your personal data. All your password within a reach so you don't have to crack your head to remember them.
         </div>
         <Link to='/register'  className='getStartedBtn'>
           <div className='getStartedIcon'> Get Started </div>
@@ -27,7 +27,7 @@ const LandingPage = () => {
         <div className='subMoreInfo-1'>
           <img className='subMoreInfo-1-image' src={subMoreInfoImg1} alt="" />
           <div className='subMoreInfo-1-heading'>All password within a reach</div>
-          <div className='subMoreInfo-1-text'>All your password within a reach so you don’t have to crack your head to remember them.</div>
+          <div className='subMoreInfo-1-text'>All your password within a reach so you don't have to crack your head to remember them.</div>
         </div>
         <div className='subMoreInfo-2'>
           <img className='subMoreInfo-1-image' src={subMoreInfoImg2} alt="" />

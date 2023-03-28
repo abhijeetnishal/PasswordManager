@@ -5,7 +5,7 @@ import PasswordPage from './components/main/PasswordPage'
 import LandingPage from './components/main/LandingPage'
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
 import Header from './components/header/Header'
-import Footer from './components/footer/Footer'
+//import Footer from './components/footer/Footer'
 import ErrorPage from './components/errorPage/ErrorPage'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -21,7 +21,7 @@ function App() {
           <Route path="/view/:id" element={<ProtectedRoute> <PasswordPage /> </ProtectedRoute>} />
           <Route path='*' element={<ErrorPage/>} />
         </Routes>
-        <Footer/>
+        {/* <Footer/> */}
       </Router>
   )
 };
