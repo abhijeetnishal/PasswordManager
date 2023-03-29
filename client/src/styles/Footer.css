@@ -1,9 +1,11 @@
 .footer{
-    position:relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding-bottom: 15px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+.github-link{
+    padding-right: 10px;
+    align-self: center;
 }
 .github-icon{
     width: 20px;
@@ -11,4 +13,13 @@
 
 .linkedin-icon{
     width: 20px;
+}
+
+@media screen and (max-width: 480px){
+    .footer{
+        width: 480px;
+        display: flex;
+        justify-content: center;
+    }
+    
 }
