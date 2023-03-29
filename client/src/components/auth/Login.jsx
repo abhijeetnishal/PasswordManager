@@ -75,53 +75,55 @@ const Login = () => {
   }
   
   return (
-      <div className='container'>
-      <div className="login form">
-      <header>Login</header>
-      <form>
-        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" />
-        <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" />
-      </form>
-      <div>
-      {
-        (validateEmail(email) && password) ? (
-          <input type='button' className='button' onClick={handleSubmit} disabled={isLoading} value='Login' />
-        ) : 
-        (<div> {
-            !email || !password ? (
-              <input type='button' className='button' onClick={emptyFieldFunc} disabled={isLoading} value='Login' />
-              ) : ( 
-                <div>
-                  {
-                    !validateEmail(email) ? 
-                    (<input type='button' className='button' onClick={invalidEmail} disabled={isLoading} value='Login' />):(
-                      <div> </div>  
-                    )
-                  }
-                </div>
-              )
+    <div className='register'>
+        <div className='container'>
+        <div className="login form">
+        <header>Login</header>
+        <form>
+          <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email" />
+          <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" />
+        </form>
+        <div>
+        {
+          (validateEmail(email) && password) ? (
+            <input type='button' className='button' onClick={handleSubmit} disabled={isLoading} value='Login' />
+          ) : 
+          (<div> {
+              !email || !password ? (
+                <input type='button' className='button' onClick={emptyFieldFunc} disabled={isLoading} value='Login' />
+                ) : ( 
+                  <div>
+                    {
+                      !validateEmail(email) ? 
+                      (<input type='button' className='button' onClick={invalidEmail} disabled={isLoading} value='Login' />):(
+                        <div> </div>  
+                      )
+                    }
+                  </div>
+                )
+            }
+          </div>)
           }
-        </div>)
-        }
-        <div className='messageDiv'>
-          {
-            btnClick?
-            (<div className='message'>
-              {
-                isLoading ? (<LoadingSpinner/>) : (message)
-              }
-            </div>):
-            (<div>
-            </div>)
-          }
+          <div className='messageDiv'>
+            {
+              btnClick?
+              (<div className='message'>
+                {
+                  isLoading ? (<LoadingSpinner/>) : (message)
+                }
+              </div>):
+              (<div>
+              </div>)
+            }
+          </div>
         </div>
-      </div>
-      <div className="signup">
-        <span className="signup">Don't have an account?
-         <Link to='/register' >Register</Link>
-        </span>
-      </div>
-      </div>
+        <div className="signup">
+          <span className="signup">Don't have an account?
+          <Link to='/register' >Register</Link>
+          </span>
+        </div>
+        </div>
+        </div>
       </div>
   )
 }

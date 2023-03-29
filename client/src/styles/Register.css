@@ -6,6 +6,9 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.register{
+  padding-bottom: calc(100vh - 112px);
+}
 .container{
   display: flex;
   align-items: center;
@@ -87,4 +90,9 @@ input.button:hover{
 .message{
   text-align: center;
   color: red;
+}
+@media screen and (min-width: 1024px) {
+  .container{
+    left: 34%;
+  }
 }

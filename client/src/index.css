@@ -5,11 +5,13 @@ body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
@@ -17,4 +19,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@-ms-viewport{
+  width: device-width;
 }
