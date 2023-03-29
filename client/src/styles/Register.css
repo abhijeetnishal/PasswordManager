@@ -7,7 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 .register{
-  padding-bottom: calc(100vh - 112px);
+  padding-bottom: calc(100vh + 80px);
 }
 .container{
   display: flex;
@@ -92,6 +92,9 @@ input.button:hover{
   color: red;
 }
 @media screen and (min-width: 1024px) {
+  .register{
+    padding-bottom: calc(100vh - 112px);
+  }
   .container{
     left: 34%;
   }

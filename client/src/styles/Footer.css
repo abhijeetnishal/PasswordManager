@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    height: 30px;
 }
 .github-link{
     align-self: center;
