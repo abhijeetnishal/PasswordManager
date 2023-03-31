@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DeleteConfirmation from './DeleteConfirmation';
 import { Cookies } from 'react-cookie'
+import '../../styles/PasswordPage.css'
 import EditPassword from './EditPassword';
 
 const PasswordPage = () => {
@@ -134,7 +135,7 @@ const PasswordPage = () => {
       }, [updateData]);
 
     return (
-        <div>
+        <div className='main-container'>
             <div>My Passwords</div>
             <div>
                 {
