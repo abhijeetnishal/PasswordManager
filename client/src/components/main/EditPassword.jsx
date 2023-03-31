@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../../styles/EditPassword.css'
 
 const EditPassword = (props) => {
   const {item, onClose, editData, updateBtn} = props;
@@ -18,7 +19,7 @@ const EditPassword = (props) => {
   }
 
   return (
-    <div>
+    <div className='modalContainer'>
         <div>
           Enter the {item} data to update
         </div>

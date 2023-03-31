@@ -1,6 +1,6 @@
 import React from "react";
 import headerLock from '../../assets/lockHeader.png'
-import profilePhoto from '../../assets/user.png'
+import profilePhoto from '../../assets/user-profile.png'
 import '../../styles/Header.css'
 import { Link, useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
@@ -9,7 +9,6 @@ const Header = () => {
   const cookies = new Cookies();
   const cookieValue = cookies.get('myCookie');
   const userName = cookieValue?.username;
-  const userId = cookieValue?.id;
   const navigate = useNavigate();
 
   const logout = () => {
@@ -44,12 +43,10 @@ const Header = () => {
         <div className="noAuthNavbar">
           <img className="headerLock" src={headerLock} alt="" />
           <Link className="keySafeIcon" to="/">Key Safe</Link>
-          <Link className="createIcon" to='/create'> Create </Link>
-          <Link className="viewIcon" to={`/view/${userId}`}>View</Link>
           <img className="profilePhoto" src={profilePhoto} alt="" />
            <div className="userName"> {userName} </div>
             <div className="headerLoginBtn">
-              <Link to='/' className="headerLoginIcon" onClick={logout}>Logout</Link>
+              <Link to='/' className="headerLogoutIcon" onClick={logout}>Logout</Link>
             </div>
         </div>
       )}

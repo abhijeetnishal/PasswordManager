@@ -45,27 +45,27 @@ const CreatePassword = () => {
     }
     
     return (
-        <div>
-            <div>Create Password </div>
-            <input type="text" name="websitename" value={websiteName} placeholder='websitename' onChange={(e)=>setWebsiteName(e.target.value)} />    
-            <input type="password" name="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} /> 
-            {
-                (websiteName && password) ? 
-                (<button onClick={createNewPassword}>Save Password</button>) :
-                (
-                <div>
-                    <button onClick={emptyField}>Save Password</button>
-                </div>
-                )
-            }
             <div>
+                <div>Create Password </div>
+                <input type="text" name="websitename" value={websiteName} placeholder='websitename' onChange={(e)=>setWebsiteName(e.target.value)} />    
+                <input type="password" name="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} /> 
                 {
-                btnClick ? 
-                (message) :
-                (<div></div>)
+                    (websiteName && password) ? 
+                    (<button onClick={createNewPassword}>Save Password</button>) :
+                    (
+                    <div>
+                        <button onClick={emptyField}>Save Password</button>
+                    </div>
+                    )
                 }
+                <div>
+                    {
+                    btnClick ? 
+                    (message) :
+                    (<div></div>)
+                    }
+                </div>
             </div>
-        </div>
     )
 }
 
