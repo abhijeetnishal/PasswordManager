@@ -20,7 +20,7 @@ const cors = require('cors')
 //This will allow the user in the frontend to consume the APIs that you have created without any problem.
 
 // Curb Cores Error by adding a header here
-app.use(cors({credentials:true, origin:'http://localhost:3000'}));
+app.use(cors({credentials:true, origin: ['http://localhost:3000', 'https://mypasswordmanager.vercel.app']}));
 
 
 //require database connection 

@@ -3,6 +3,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 import { Cookies } from 'react-cookie'
 import '../../styles/PasswordPage.css'
 import EditPassword from './EditPassword';
+import CreatePassword from '../main/CreatePassword';
 import commonWebsiteSymbolImg from '../../assets/commonWebsiteSymbol.png' 
 import decryptBtnImg from '../../assets/decryptBtn.png'
 import editBtnImg from '../../assets/editBtnImg.png'
@@ -11,46 +12,48 @@ import deleteBtn from '../../assets/deleteBtnblue.png'
 const PasswordPage = () => {
     const cookies = new Cookies();
     const cookieValue = cookies.get('myCookie');
+    const userId = cookieValue.id;
     
     const [data, setData] = useState(null);
     const [decryptedPassword, setDecryptedPassword] = useState(null);
 
-    const [showBtn, setShowBtn] = useState(false);
+    //const [showBtn, setShowBtn] = useState(false);
 
     const [showPopUpDelete, setShowPopUpDelete] = useState(false);
     const [showPopUpEdit, setShowPopUpEdit] = useState(false);
+    const [showPopUpAdd, setShowPopUpAdd]  = useState(false);
 
     const [deleteId, setDeleteId] = useState(null);
     const [editId, setEditId] = useState(null);
     
     const [updateData, setUpdateData] = useState({websiteName:'', password:''});
+
     const [updateBtnClick, setUpdateBtnClick] = useState(false);
 
     const [dataLength, setDataLength] = useState(0);
 
-    const userId = cookieValue.id;
 
     useEffect(() => {
-    // declare the async data fetching function
-    const fetchData = async () => {
-        // get the data from the api
-        const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/all/${userId}`);
-        // convert the data to json
-        const data = await response.json();
-        setData(data);
-        setDataLength(data.length);
-        //console.log(data);
-    }
-    
-    // call the function
-    fetchData()
-        // make sure to catch any error
-        .catch(console.error);
-    //eslint-disable-next-line
+        // declare the async data fetching function
+        const fetchData = async () => {
+            // get the data from the api
+            const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/all/${userId}`);
+            // convert the data to json
+            const data = await response.json();
+            setData(data);
+            setDataLength(data.length);
+            //console.log(data);
+        }
+        
+        // call the function
+        fetchData()
+            // make sure to catch any error
+            .catch(console.error);
+        //eslint-disable-next-line
     }, [])
 
     async function decrypt(passwordId){
-        showHidebtn();
+        //showHidebtn();
         const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/specific/${passwordId}`,{
             method: 'GET',
             headers: {
@@ -58,51 +61,13 @@ const PasswordPage = () => {
             },
             credentials: 'include',
         });
-
-        const passwordData = await response.json();
-        //console.log(passwordData);
-        setDecryptedPassword(passwordData);
-    }
-     
-    function handleDeleteClick(passwordId){
-        
-        setShowPopUpDelete(true);
-        setDeleteId(passwordId);
-    }
-
-    function handleEditClick(passwordId){
-        setShowPopUpEdit(true);
-        setEditId(passwordId);
-    }
-
-    function handleCloseDialogDelete(){
-        setShowPopUpDelete(false);
-    }
-
-    function handleCloseDialogEdit(){
-        setShowPopUpEdit(false);
-    }
-
-    function showHidebtn(){
-        setShowBtn(!showBtn);
-    }
-
-    async function handleConfirmationDelete(passwordId){
-        const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/${passwordId}`,{
-            method: 'DELETE',
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-            });
-
         response.json().then(data => ({
             data: data,
-            status: response.status
         })
-        ).then(res => {
-            //console.log(res.status, res.data);
-            window.location.reload(false);
+        ).then(async(res) => {
+            const data = res.data;
+            //console.log(data);
+            setDecryptedPassword(data); 
         })
     }
 
@@ -142,7 +107,37 @@ const PasswordPage = () => {
             .catch(console.error);
         }
         //eslint-disable-next-line
-      }, [updateData]);
+    }, [updateData]);
+     
+    function handleDeleteClick(passwordId){
+        setShowPopUpDelete(true);
+        setDeleteId(passwordId);
+    }
+
+    function handleEditClick(passwordId){
+        setShowPopUpEdit(true);
+        setEditId(passwordId);
+    }
+
+    function handleAddClick(){
+        setShowPopUpAdd(true);
+    }
+
+    function handleCloseDialogDelete(){
+        setShowPopUpDelete(false);
+    }
+
+    function handleCloseDialogEdit(){
+        setShowPopUpEdit(false);
+    }
+
+    function handleCloseDialogAdd(){
+        setShowPopUpAdd(false);
+    }
+
+    // function showHidebtn(){
+    //     setShowBtn(!showBtn);
+    // }
 
     return (
         <div className='main-container'>
@@ -150,9 +145,16 @@ const PasswordPage = () => {
                 <div className='yourSavedPasswordText'>
                     Your Saved Passwords
                 </div>
-                <button className='addNewPassword'>
+                <button className='addNewPassword' onClick={()=>handleAddClick()}>
                     <div className='addNewText'>+Add New</div>
                 </button>
+                {
+                    (showPopUpAdd && userId) && (
+                        <CreatePassword
+                            onClose={handleCloseDialogAdd}
+                        />
+                    )
+                }
             </div>
             
             <div className='sub-main-container'>
@@ -167,7 +169,7 @@ const PasswordPage = () => {
                                         {mainData.websiteName}
                                     </div>
                                     <div className='subPasswordContainer'>
-                                        Password: {(showBtn && decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
+                                        Password: {(decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
                                     </div>
                                 </div>
                                 <button className='decryptBtn' onClick={()=> decrypt(mainData._id)}>
@@ -197,13 +199,13 @@ const PasswordPage = () => {
                                         <div className='deleteTextBtn'>Delete</div>
                                     </button> 
                                     {
-                                    (showPopUpDelete && deleteId===mainData._id) && (
-                                        <DeleteConfirmation
-                                            item={mainData.websiteName}
-                                            onClose={handleCloseDialogDelete}
-                                            onConfirm={()=>handleConfirmationDelete(mainData._id)}
-                                        />
-                                    )
+                                        (showPopUpDelete && deleteId===mainData._id) && (
+                                            <DeleteConfirmation
+                                                passwordId={mainData._id}
+                                                item={mainData.websiteName}
+                                                onClose={handleCloseDialogDelete}
+                                            />
+                                        )
                                     }
                                 </div>
                             </div>
