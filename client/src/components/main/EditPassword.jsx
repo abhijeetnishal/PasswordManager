@@ -20,8 +20,8 @@ const EditPassword = (props) => {
   }
 
   return (
-    <div onClick={onClose} className='overlay'>
-      <div onClick={(e) => {e.stopPropagation();}} className='modalContainer'>
+    <div onClick={onClose} className='editOverlay'>
+      <div onClick={(e) => {e.stopPropagation();}} className='editModalContainer'>
           <div className='editDataText'>
             Edit {item} Data
           </div>
@@ -41,7 +41,7 @@ const EditPassword = (props) => {
               <input className='inputField' type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='1234567sdfgh' />
             </div> 
           </div>
-          <div className='btnContainer'>
+          <div className='editBtnContainer'>
             <button className='cancelBtn' onClick={onClose}>cancel </button>
             <button className='saveBtn' onClick={updateFunc}>
               <img className='saveBtnImg' src={SaveBtn} alt="" />
