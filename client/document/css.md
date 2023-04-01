@@ -13,3 +13,11 @@
 ### 2. Code Reusability in CSS:
 * It is important to reuse the same div container class name or id if you are creating same style to other container instead of copy pasting same code. <br>
 e.g. I used same css code for both login and register page with Register.css file and also in Header.css file for both auth or non auth navbar.
+
+### 3. Make Btn Container transparent:
+```css
+  .transparentBtn{
+    border: 0px solid white; 
+    background-color: transparent;
+  }
+```

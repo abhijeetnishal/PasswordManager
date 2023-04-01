@@ -1,19 +1,26 @@
-import React from 'react'
+import '../../styles/DeleteConfirmation.css'
+import deleteBtn from '../../assets/delete-btn.png'
 
 const DeleteConfirmation = (props) => {
 
     const {item, onConfirm, onClose} = props;
 
   return (
-    <div className="dialog-container">
-      <div className="dialog">
-        <div className="dialog-message">
-          Are you sure you want to delete {item} Password
-        </div>
-        <div className="dialog-buttons">
-          <button onClick={onConfirm}>Confirm</button>
-          <button onClick={onClose}>Cancel</button>
-        </div>
+    <div onClick={onClose} className='overlay'>
+      <div onClick={(e) => {e.stopPropagation();}} className='modalContainer'>
+            <div className="deleteConfirmation">
+              Are you sure you want to delete {item} Data?
+            </div>
+            <div className='deleteConfirmationMessage'>
+              Once you delete we will not be able to undo it. Delete only if you are sure about it.
+            </div>
+            <div className="btnContainer">
+              <button className='closeBtn' onClick={onClose}>Cancel</button> 
+              <button className='deleteBtn' onClick={onConfirm}>
+                <img className='deleteBtnImg' src={deleteBtn} alt="" />
+                <div className='deleteText'>Delete</div>
+              </button>
+            </div>
       </div>
     </div>
   )

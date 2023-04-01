@@ -3,6 +3,10 @@ import DeleteConfirmation from './DeleteConfirmation';
 import { Cookies } from 'react-cookie'
 import '../../styles/PasswordPage.css'
 import EditPassword from './EditPassword';
+import commonWebsiteSymbolImg from '../../assets/commonWebsiteSymbol.png' 
+import decryptBtnImg from '../../assets/decryptBtn.png'
+import editBtnImg from '../../assets/editBtnImg.png'
+import deleteBtn from '../../assets/deleteBtnblue.png'
 
 const PasswordPage = () => {
     const cookies = new Cookies();
@@ -10,13 +14,18 @@ const PasswordPage = () => {
     
     const [data, setData] = useState(null);
     const [decryptedPassword, setDecryptedPassword] = useState(null);
+
     const [showBtn, setShowBtn] = useState(false);
+
     const [showPopUpDelete, setShowPopUpDelete] = useState(false);
     const [showPopUpEdit, setShowPopUpEdit] = useState(false);
+
     const [deleteId, setDeleteId] = useState(null);
     const [editId, setEditId] = useState(null);
+    
     const [updateData, setUpdateData] = useState({websiteName:'', password:''});
     const [updateBtnClick, setUpdateBtnClick] = useState(false);
+
     const [dataLength, setDataLength] = useState(0);
 
     const userId = cookieValue.id;
@@ -56,6 +65,7 @@ const PasswordPage = () => {
     }
      
     function handleDeleteClick(passwordId){
+        
         setShowPopUpDelete(true);
         setDeleteId(passwordId);
     }
@@ -136,52 +146,75 @@ const PasswordPage = () => {
 
     return (
         <div className='main-container'>
-            <div>My Passwords</div>
-            <div>
+            <div className='headingContainer'>
+                <div className='yourSavedPasswordText'>
+                    Your Saved Passwords
+                </div>
+                <button className='addNewPassword'>
+                    <div className='addNewText'>+Add New</div>
+                </button>
+            </div>
+            
+            <div className='sub-main-container'>
                 {
-                (dataLength) ? (
-                data.map((mainData, index) => (
-                    <div key={index}>
-                        <div>
-                            <div>
-                                <button onClick={()=>handleEditClick(mainData._id)}>Edit</button>
-                                {
-                                    (showPopUpEdit && editId===mainData._id) && (
-                                        <EditPassword
-                                            item = {mainData.websiteName}
-                                            onClose={handleCloseDialogEdit}
-                                            editData = {setUpdateData}
-                                            updateBtn = {setUpdateBtnClick}
+                (dataLength) ? 
+                    (data.map((mainData, index) => (
+                        <div className='singlePasswordContainer' key={index}>
+                            <div className='namePasswordDecryptContainer'>
+                                <img className='commonWebsiteImg' src={commonWebsiteSymbolImg} alt="" />
+                                <div className='namePasswordContainer'>
+                                    <div className='subWebsiteNameContainer'>
+                                        {mainData.websiteName}
+                                    </div>
+                                    <div className='subPasswordContainer'>
+                                        Password: {(showBtn && decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
+                                    </div>
+                                </div>
+                                <button className='decryptBtn' onClick={()=> decrypt(mainData._id)}>
+                                    <img className='decryptBtnImg' src={decryptBtnImg} alt="" />
+                                </button>
+                            </div>
+                            <div className='editDeleteContainer'>
+                                <div className='editContainer'>
+                                    <button className='editSubContainer' onClick={()=>handleEditClick(mainData._id)}>
+                                        <img className='editImg' src={editBtnImg} alt="" />
+                                        <div className='editText'>Edit</div>
+                                    </button>
+                                    {
+                                        (showPopUpEdit && editId===mainData._id) && (
+                                            <EditPassword
+                                                item = {mainData.websiteName}
+                                                onClose={handleCloseDialogEdit}
+                                                editData = {setUpdateData}
+                                                updateBtn = {setUpdateBtnClick}
+                                            />
+                                        )
+                                    }
+                                </div>
+                                <div className='deleteContainer'>
+                                    <button className='deleteSubContainer' onClick={()=>handleDeleteClick(mainData._id)}>
+                                        <img className='deleteImg' src={deleteBtn} alt="" />
+                                        <div className='deleteTextBtn'>Delete</div>
+                                    </button> 
+                                    {
+                                    (showPopUpDelete && deleteId===mainData._id) && (
+                                        <DeleteConfirmation
+                                            item={mainData.websiteName}
+                                            onClose={handleCloseDialogDelete}
+                                            onConfirm={()=>handleConfirmationDelete(mainData._id)}
                                         />
                                     )
-                                }
+                                    }
+                                </div>
                             </div>
-                            <div>
-                            <button onClick={()=>handleDeleteClick(mainData._id)}>Delete</button>
-                            {
-                                (showPopUpDelete && deleteId===mainData._id) && (
-                                    <DeleteConfirmation
-                                        item={mainData.websiteName}
-                                        onClose={handleCloseDialogDelete}
-                                        onConfirm={()=>handleConfirmationDelete(mainData._id)}
-                                    />
-                                )
-                            }
-                            </div>
-                            <div>Website Name: {mainData.websiteName}</div>
-                            <div>
-                            {(showBtn && decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
-                            </div>
-                            <button onClick={()=> decrypt(mainData._id)}>  {showBtn ? 'hide' : 'show'}
-                            </button>
                         </div>
-                    </div>
-                ))) : 
-                (
-                    <div>
-                        You haven't saved any password.
-                    </div>       
-                )
+                    ))
+                    ) : 
+                    (
+                        <div>
+                            You haven't saved any password.
+                        </div>       
+                    )
                 }
             </div>
         </div>
