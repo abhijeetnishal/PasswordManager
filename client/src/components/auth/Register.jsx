@@ -28,12 +28,20 @@ const Register = () => {
         password
       })
     })
+    console.log(response.status);
     const data = await response.json();
-    setMessage(data.message);
-    setIsLoading(false);
-
-    if(response.ok)
-      setRedirect(true);
+    console.log(data);
+    if(data) {
+        console.log(data);
+        setMessage(data);
+        setRedirect(true);
+        setBtnClick(true);
+    }
+    else{
+      setIsLoading(false);
+      setBtnClick(true);
+      setMessage(data.message);
+    }
   }
 
   const emptyFieldFunc = ()=>{

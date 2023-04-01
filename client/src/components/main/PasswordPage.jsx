@@ -64,7 +64,7 @@ const PasswordPage = () => {
         response.json().then(data => ({
             data: data,
         })
-        ).then(async(res) => {
+        ).then((res) => {
             const data = res.data;
             //console.log(data);
             setDecryptedPassword(data); 
@@ -214,7 +214,6 @@ const PasswordPage = () => {
                     ) : 
                     (
                         <div>
-                            You haven't saved any password.
                         </div>       
                     )
                 }

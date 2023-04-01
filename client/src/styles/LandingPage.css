@@ -1,6 +1,6 @@
 .landingPage{
-    min-height:100%;
-    position:relative;
+    margin: 0;
+    padding: 0;
     padding-bottom: 80rem;
 }
 .getStarted{
@@ -178,7 +178,6 @@
 
     .getStarted{
         width: 480px;
-        background: rgba(255, 237, 187, 0.4);
     }
     .getStartedImage{
         left: 60px;
@@ -186,14 +185,6 @@
     .getStartedinfo-1{
         left: 115px;
         top: 330px;
-
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 24px;
-        line-height: 34px;
-
-        color: #212121;
     }
     .getStartedinfo-2{
         position: absolute;
@@ -201,75 +192,29 @@
         height: 60px;
         left: 90px;
         top: 376px;
-
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        
-        text-align: center;
-
-        color: #666666;
     }
     .getStartedBtn{
-        /* Auto layout */
-
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 5px 20px;
-        gap: 8px;
-
         position: absolute;
         width: 226px;
         height: 40px;
         left: 130px;
         top: 476px;
-
-        background: #30AFB5;
-        border-radius: 4px;
-
-        text-decoration: none;
     }
     .getStartedIcon{
+        position: absolute;
         width: 91px;
         height: 30px;
-
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-style: normal;
         font-weight: 700;
         font-size: 16px;
         line-height: 30px;
-        /* identical to box height, or 188% */
-
-        text-align: center;
-        color: #FFFFFF;
-        /* Inside auto layout */
-
-        flex: none;
-        order: 0;
-        flex-grow: 0;
     }
     .rightArrow{
         width: 24px;
         height: 24px;
-        /* Inside auto layout */
-        flex: none;
-        order: 1;
-        flex-grow: 0;
+        position: absolute;
+        left:160px ;
     }
     .subMoreInfo-1{
-        /* Auto layout */
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0px;
-        gap: 8px;
-
-        position: absolute;
         width: 347px;
         height: 238px;
         left: 81px;
@@ -278,54 +223,17 @@
     .subMoreInfo-1-image{
         width: 136px;
         height: 136px;
-
     }
     .subMoreInfo-1-heading{
         width: 333px;
         height: 34px;
-
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 24px;
-        line-height: 34px;
-        /* identical to box height, or 142% */
-        text-align: center;
-        color: #212121;
-        /* Inside auto layout */
-
-        flex: none;
-        order: 1;
-        flex-grow: 0;
     }
     .subMoreInfo-1-text{
         width: 347px;
         height: 52px;
-        
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
         line-height: 26px;
-        /* or 162% */
-
-        text-align: center;
-        color: #212121;
-
-        /* Inside auto layout */
-
-        flex: none;
-        order: 2;
-        flex-grow: 0;
     }
     .subMoreInfo-2{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0px;
-        gap: 8px;
-
-        position: absolute;
         width: 347px;
         height: 238px;
         left: 70px;

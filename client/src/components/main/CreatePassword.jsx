@@ -31,7 +31,7 @@ const CreatePassword = (props) => {
         })
       }
       else{
-        setMessage('enter all details');
+        setMessage('Enter All Details');
       }
     }
     
@@ -62,7 +62,7 @@ const CreatePassword = (props) => {
                         <div className='saveText'>Save</div>
                     </button>
                 </div>
-                <div>
+                <div className='editMessage'>
                     {message}
                 </div>
             </div>

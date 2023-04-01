@@ -23,6 +23,7 @@ const signup = async(req,res)=>{
             email: email,
             password: hashedPassword,
         });
+        res.status(200).json(username);
     }
 
     catch(error){

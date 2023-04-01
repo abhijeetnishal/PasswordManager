@@ -15,7 +15,7 @@ const EditPassword = (props) => {
       editData({websiteName, password});
     }
     else{
-      setMessage('enter all details');
+      setMessage('Enter All Details');
     }
   }
 
@@ -48,7 +48,7 @@ const EditPassword = (props) => {
               <div className='saveText'>Save</div>
             </button>
           </div>
-          <div>
+          <div className='editMessage'>
             {message}
           </div>
       </div>
