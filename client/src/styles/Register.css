@@ -7,7 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 .register{
-  padding-bottom: calc(100vh + 80px);
+  padding-bottom: calc(100vh + 200px);
 }
 .container{
   display: flex;

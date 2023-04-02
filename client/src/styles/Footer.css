@@ -2,11 +2,13 @@
     position: relative;
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     height: 30px;
+    padding-bottom: 45px;
 }
 .github-link{
-    align-self: center;
     padding-right: 20px;
 }
 .linkedin-link{
@@ -22,7 +24,5 @@
 @media screen and (max-width: 480px){
     .footer{
         width: 480px;
-        display: flex;
-        justify-content: center;
     }
 }

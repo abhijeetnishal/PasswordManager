@@ -32,6 +32,8 @@ const PasswordPage = () => {
 
     const [dataLength, setDataLength] = useState(0);
 
+    const [containerHeight, setContainerHeight] = useState(0);
+
 
     useEffect(() => {
         // declare the async data fetching function
@@ -42,6 +44,8 @@ const PasswordPage = () => {
             const data = await response.json();
             setData(data);
             setDataLength(data.length);
+            const height = data.length * 140; // Assuming each item is 50px tall
+            setContainerHeight(height);
             //console.log(data);
         }
         
@@ -49,8 +53,9 @@ const PasswordPage = () => {
         fetchData()
             // make sure to catch any error
             .catch(console.error);
+            
         //eslint-disable-next-line
-    }, [])
+    }, []);
 
     async function decrypt(passwordId){
         //showHidebtn();
@@ -140,7 +145,7 @@ const PasswordPage = () => {
     // }
 
     return (
-        <div className='main-container'>
+        <div className='main-container' style={{ height: `${containerHeight}px` }}>
             <div className='headingContainer'>
                 <div className='yourSavedPasswordText'>
                     Your Saved Passwords

@@ -67,3 +67,35 @@ e.g. I used same css code for both login and register page with Register.css fil
 * Width of the Container: If the container is wider than the available space on the line, it will naturally wrap onto a new line. You can try reducing the width of the container or adjusting the size of other elements on the page to make sure everything fits on the same line.
 
 * HTML Structure: It is also possible that the HTML structure of your page is causing the issue. You may want to check that your HTML is valid and properly nested, and that there are no unclosed tags or other errors that could be affecting the display of the container.
+
+### How to center the container perfectly:
+```css
+.container{
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center;
+}
+```
+
+### How to set the height of container which depends on item appended from DB in react using css:
+```js
+  import { useState, useEffect } from "react";
+  function Container({ items }) {
+    const [containerHeight, setContainerHeight] = useState(0);
+
+    useEffect(() => {
+      // Calculate the height of the container based on the number of items
+      const height = items.length * 50; // Assuming each item is 50px tall
+      setContainerHeight(height);
+    }, [items]);
+
+    return (
+      <div style={{ height: `${containerHeight}px` }}>
+        {items.map((item) => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </div>
+    );
+  }
+```
+* To understand better go to PasswordPage.jsx file and see useEffect hook and .main-container.
