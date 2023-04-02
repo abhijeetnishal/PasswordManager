@@ -55,3 +55,15 @@ e.g. I used same css code for both login and register page with Register.css fil
     }
 
 ```
+
+### There could be several reasons why your word in a div container is not displaying on the same line using CSS. Here are a few possible reasons:
+
+* CSS Display Property: If you have set the display property of the div container to "block," it will take up the full width of its parent container, forcing the next element to a new line. You can set the display property to "inline" or "inline-block" to make the container display on the same line as other inline elements.
+
+* CSS Float Property: If you have floated the div container to the left or right, it will take up only the necessary width, allowing other elements to display on the same line. If you haven't floated the container, it may be that other elements on the page are not allowing it to fit on the same line.
+
+* CSS Margin or Padding: If you have added margin or padding to the div container, it could be pushing other elements onto a new line. You can try reducing the margin or padding to see if that allows the container to display on the same line.
+
+* Width of the Container: If the container is wider than the available space on the line, it will naturally wrap onto a new line. You can try reducing the width of the container or adjusting the size of other elements on the page to make sure everything fits on the same line.
+
+* HTML Structure: It is also possible that the HTML structure of your page is causing the issue. You may want to check that your HTML is valid and properly nested, and that there are no unclosed tags or other errors that could be affecting the display of the container.

@@ -69,3 +69,6 @@ jwt.verify(token, secretOrPublicKey, [options, callback])
 
 for mongoose query: https://masteringjs.io/tutorials/mongoose/find-certain-fields#:~:text=To%20filter%20object%20properties%20in,fields%20you%20wish%20to%20return.
 
+Encypt and Decrypt data in nodejs:
+https://www.youtube.com/watch?v=hNYdkBdVzsQ
+https://adnan-tech.com/encrypt-and-decrypt-strings-using-node-js-and-mongo-db/
