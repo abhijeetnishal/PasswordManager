@@ -56,7 +56,7 @@ e.g. I used same css code for both login and register page with Register.css fil
 
 ```
 
-### There could be several reasons why your word in a div container is not displaying on the same line using CSS. Here are a few possible reasons:
+### 6. There could be several reasons why your word in a div container is not displaying on the same line using CSS. Here are a few possible reasons:
 
 * CSS Display Property: If you have set the display property of the div container to "block," it will take up the full width of its parent container, forcing the next element to a new line. You can set the display property to "inline" or "inline-block" to make the container display on the same line as other inline elements.
 
@@ -68,7 +68,7 @@ e.g. I used same css code for both login and register page with Register.css fil
 
 * HTML Structure: It is also possible that the HTML structure of your page is causing the issue. You may want to check that your HTML is valid and properly nested, and that there are no unclosed tags or other errors that could be affecting the display of the container.
 
-### How to center the container perfectly:
+### 7. How to center the container perfectly:
 ```css
 .container{
   flex-direction: row; 
@@ -77,7 +77,18 @@ e.g. I used same css code for both login and register page with Register.css fil
 }
 ```
 
-### How to set the height of container which depends on item appended from DB in react using css:
+or
+
+```css
+.container{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+```
+
+### 8. How to set the height of container which depends on item appended from DB in react using css:
 ```js
   import { useState, useEffect } from "react";
   function Container({ items }) {

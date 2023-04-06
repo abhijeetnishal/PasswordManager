@@ -24,16 +24,18 @@ const LandingPage = () => {
           <img className='rightArrow' src={rightArrow} alt="" />
         </Link>
       </div>
-        <div className='subMoreInfo-1'>
-          <img className='subMoreInfo-1-image' src={subMoreInfoImg1} alt="" />
-          <div className='subMoreInfo-1-heading'>All password within a reach</div>
-          <div className='subMoreInfo-1-text'>All your password within a reach so you don't have to crack your head to remember them.</div>
-        </div>
-        <div className='subMoreInfo-2'>
-          <img className='subMoreInfo-1-image' src={subMoreInfoImg2} alt="" />
-          <div className='subMoreInfo-1-heading'>Easy & Convenient</div>
-          <div className='subMoreInfo-1-text'>Save all your password at one place within minutes.</div>
-        </div>
+      <div className='subMoreInfoContainer'>
+          <div className='subMoreInfo-1'>
+            <img className='subMoreInfo-1-image' src={subMoreInfoImg1} alt="" />
+            <div className='subMoreInfo-1-heading'>All password within a reach</div>
+            <div className='subMoreInfo-1-text'>All your password within a reach so you don't have to crack your head to remember them.</div>
+          </div>
+          <div className='subMoreInfo-2'>
+            <img className='subMoreInfo-1-image' src={subMoreInfoImg2} alt="" />
+            <div className='subMoreInfo-1-heading'>Easy & Convenient</div>
+            <div className='subMoreInfo-1-text'>Save all your password at one place within minutes.</div>
+          </div>
+      </div> 
     </div>
   )
 }
