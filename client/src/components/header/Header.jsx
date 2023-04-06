@@ -43,11 +43,15 @@ const Header = () => {
         <div className="noAuthNavbar">
           <img className="headerLock" src={headerLock} alt="" />
           <Link className="keySafeIcon" to="/">Key Safe</Link>
-          <img className="profilePhoto" src={profilePhoto} alt="" />
-           <div className="userName"> {userName} </div>
+          <div className="userInfoAndLogin">
+            <div className="userInfo">
+              <img className="profilePhoto" src={profilePhoto} alt="" />
+              <div className="userName">  {userName} </div>
+            </div>
             <div className="headerLoginBtn">
               <Link to='/' className="headerLogoutIcon" onClick={logout}>Logout</Link>
             </div>
+          </div>
         </div>
       )}
     </div>
