@@ -71,9 +71,9 @@ e.g. I used same css code for both login and register page with Register.css fil
 ### 7. How to center the container perfectly:
 ```css
 .container{
+  display: flex;
   flex-direction: row; 
   justify-content: center;
-  align-items: center;
 }
 ```
 
@@ -110,3 +110,7 @@ or
   }
 ```
 * To understand better go to PasswordPage.jsx file and see useEffect hook and .main-container.
+
+### justify content not working:
+* position is set to absolute, remove position and instead use padding or margin.
+

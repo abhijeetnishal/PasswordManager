@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import DeleteConfirmation from './DeleteConfirmation';
+import DeleteConfirmation from './DeleteConfirmation'
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
 import { Cookies } from 'react-cookie'
 import '../../styles/PasswordPage.css'
-import EditPassword from './EditPassword';
-import CreatePassword from '../main/CreatePassword';
+import EditPassword from './EditPassword'
+import CreatePassword from '../main/CreatePassword'
 import commonWebsiteSymbolImg from '../../assets/commonWebsiteSymbol.png' 
 import decryptBtnImg from '../../assets/decryptBtn.png'
 import editBtnImg from '../../assets/editBtnImg.png'
 import deleteBtn from '../../assets/deleteBtnblue.png'
 
+
 const PasswordPage = () => {
     const cookies = new Cookies();
     const cookieValue = cookies.get('myCookie');
     const userId = cookieValue.id;
-    
+
     const [data, setData] = useState(null);
     const [decryptedPassword, setDecryptedPassword] = useState(null);
 
-    //const [showBtn, setShowBtn] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [showPopUpDelete, setShowPopUpDelete] = useState(false);
     const [showPopUpEdit, setShowPopUpEdit] = useState(false);
@@ -37,6 +39,7 @@ const PasswordPage = () => {
 
     useEffect(() => {
         // declare the async data fetching function
+        setIsLoading(true);
         const fetchData = async () => {
             // get the data from the api
             const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/all/${userId}`);
@@ -47,13 +50,13 @@ const PasswordPage = () => {
             const height = data.length * 140; // Assuming each item is 50px tall
             setContainerHeight(height);
             //console.log(data);
+            setIsLoading(false);
         }
         
         // call the function
         fetchData()
-            // make sure to catch any error
-            .catch(console.error);
-            
+        // make sure to catch any error
+        .catch(console.error);
         //eslint-disable-next-line
     }, []);
 
@@ -113,7 +116,7 @@ const PasswordPage = () => {
         }
         //eslint-disable-next-line
     }, [updateData]);
-     
+
     function handleDeleteClick(passwordId){
         setShowPopUpDelete(true);
         setDeleteId(passwordId);
@@ -140,10 +143,6 @@ const PasswordPage = () => {
         setShowPopUpAdd(false);
     }
 
-    // function showHidebtn(){
-    //     setShowBtn(!showBtn);
-    // }
-
     return (
         <div className='main-container' style={{ height: `${containerHeight}px` }}>
             <div className='headingContainer'>
@@ -164,22 +163,24 @@ const PasswordPage = () => {
             
             <div className='sub-main-container'>
                 {
-                (dataLength) ? 
+                (dataLength && !isLoading) ? 
                     (data.map((mainData, index) => (
                         <div className='singlePasswordContainer' key={index}>
-                            <div className='namePasswordDecryptContainer'>
+                            <div className='commonImgNamePasswordDecypt'>
                                 <img className='commonWebsiteImg' src={commonWebsiteSymbolImg} alt="" />
-                                <div className='namePasswordContainer'>
-                                    <div className='subWebsiteNameContainer'>
-                                        {mainData.websiteName}
+                                <div className='namePasswordDecryptContainer'>
+                                    <div className='namePasswordContainer'>
+                                        <div className='subWebsiteNameContainer'>
+                                            {mainData.websiteName}
+                                        </div>
+                                        <div className='subPasswordContainer'>
+                                            Password: {(decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
+                                        </div>
                                     </div>
-                                    <div className='subPasswordContainer'>
-                                        Password: {(decryptedPassword && decryptedPassword.id===mainData._id) ? decryptedPassword.decryptedPassword : '***********'}
-                                    </div>
+                                    <button className='decryptBtn' onClick={()=> decrypt(mainData._id)}>
+                                        <img className='decryptBtnImg' src={decryptBtnImg} alt="" />
+                                    </button>
                                 </div>
-                                <button className='decryptBtn' onClick={()=> decrypt(mainData._id)}>
-                                    <img className='decryptBtnImg' src={decryptBtnImg} alt="" />
-                                </button>
                             </div>
                             <div className='editDeleteContainer'>
                                 <div className='editContainer'>
@@ -218,8 +219,16 @@ const PasswordPage = () => {
                     ))
                     ) : 
                     (
-                        <div>
-                        </div>       
+                        (isLoading)?
+                        (
+                            <LoadingSpinner/>
+                        )
+                        :
+                        (
+                            <div>
+                                You haven't saved any password.
+                            </div>
+                        )
                     )
                 }
             </div>

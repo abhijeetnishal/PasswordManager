@@ -1,27 +1,37 @@
-@keyframes spinner {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+.scanner span {
+  color: transparent;
+  font-size: 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner span::before {
+  content: "Loading...";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-right: 4px solid #17FEFF;
+  overflow: hidden;
+  color: #17FEFF;
+  animation: load91371 2s linear infinite;
+}
+
+@keyframes load91371 {
+  0%, 10%, 100% {
+    width: 0;
   }
-  .loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 7px solid #f3f3f3; /* Light grey */
-    border-top: 10px solid #383636; /* Blue */
-    border-radius: 50%;
-    animation: spinner 1.5s linear infinite;
-  
-    background-color: #ECECEC;
+
+  10%,20%,30%,40%,50%,60%,70%,80%,90%,100% {
+    border-right-color: transparent;
   }
-  
-  .spinner-container {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-  
-    background-color: white;
+
+  11%,21%,31%,41%,51%,61%,71%,81%,91% {
+    border-right-color: #17FEFF;
   }
+
+  60%, 80% {
+    width: 100%;
+  }
+}

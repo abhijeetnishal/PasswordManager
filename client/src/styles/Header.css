@@ -1,7 +1,3 @@
-.navbar{
-    margin: 0px;
-    padding: 0px;
-}
 .noAuthNavbar{
     display: flex;
     flex-direction: row;
@@ -97,7 +93,6 @@
     height: 25px;
     margin-top: 31px;
 
-
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -118,7 +113,6 @@
     .keySafeIcon{
         width: 68px;
         height: 22px;
-        position: absolute;
         top: 2px;
     }
     .headerLoginBtn{
@@ -134,8 +128,6 @@
         width: 44px;
         height: 30px;
         margin-left: -6px;
-        text-decoration: none;
-        color: #FFFFFF;
     }
     .userInfo{
         width: 155px;

@@ -10,8 +10,6 @@ A password manager application built using MERN stack. This project allows users
 - [**Usage**](#usage)
 - [**Screenshots**](#screenshots)
 - [**Technologies**](#technologies)
-- [**Contributing**](#contributing)
-- [**Code Style**](#code-style)
 - [**Contact**](#contact)
 
 <br>
@@ -99,7 +97,7 @@ The application uses the following technologies:
 
 <br>
 
-## Contribution
+<!-- ## Contribution
 Contributions are welcome! If you would like to contribute to the project, please follow these steps:
 1. Star and Fork this repository by clicking the "Star" and "Fork" button at the top right of the repository page.
 2. Clone your forked repository to your local machine:
@@ -125,12 +123,12 @@ Contributions are welcome! If you would like to contribute to the project, pleas
 9. Wait for the project maintainer to review your pull request and provide feedback.
 10. If your pull request is accepted, it will be merged into the main branch of the project. Congratulations, you've contributed to the project!
 
-<br>
+<br> -->
 
-## Code Style
+<!-- ## Code Style
 - Please make sure to follow the existing code style and formatting conventions when making contributions to the project.
 
-<br>
+<br> -->
 
 ## Contact 
 - If you have any questions or suggestions with the app, please feel free to contact on LinkedIn: https://www.linkedin.com/in/abhijeetkumar7565/   
