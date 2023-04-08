@@ -7,6 +7,17 @@ import subMoreInfoImg2 from '../../assets/subMoreInfoImg2.png'
 import {Link} from 'react-router-dom'
 
 const LandingPage = () => {
+
+  const startServer = async ()=>{
+    await fetch('https://passwordmanager-nbfr.onrender.com/',{
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+      }
+    });
+  }
+  startServer();
+
   return (
     <div className='landingPage'>
       <div className='getStarted'>

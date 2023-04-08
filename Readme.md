@@ -81,7 +81,7 @@ The application provides an authentication system, which allows only authorized 
 <br>
 
 ## Screenshots:
-![Example image](https://example.com/images/example-image.jpg)
+![Example image]()
 
 <br>
 
