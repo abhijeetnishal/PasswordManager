@@ -6,7 +6,7 @@ const DeleteConfirmation = (props) => {
   const {passwordId ,item , onClose} = props;
 
   async function handleConfirmationDelete(){
-    const response = await fetch(`https://passwordmanager-nbfr.onrender.com/passwords/${passwordId}`,{
+    const response = await fetch(`https://passwordmanagerserver.vercel.app/passwords/${passwordId}`,{
         method: 'DELETE',
         headers:{
             'Content-Type': 'application/json',

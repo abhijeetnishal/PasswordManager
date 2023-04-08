@@ -14,7 +14,7 @@ const Header = () => {
   const logout = () => {
     const fetchData = async () => {
       // get the data from the api
-      await fetch('https://passwordmanager-nbfr.onrender.com/api/auth/logout',{
+      await fetch('https://passwordmanagerserver.vercel.app/api/auth/logout',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

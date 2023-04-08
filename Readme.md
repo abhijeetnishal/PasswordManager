@@ -8,7 +8,6 @@ A password manager application built using MERN stack. This project allows users
 - [**Features**](#features)
 - [**Installation**](#installation)
 - [**Usage**](#usage)
-- [**Screenshots**](#screenshots)
 - [**Technologies**](#technologies)
 - [**Contact**](#contact)
 
@@ -77,11 +76,6 @@ The application provides an authentication system, which allows only authorized 
     4. View your website name and password entries in the main page.
     5. Click the "eye" button to view the decrypted password.
     6. Edit or delete a website name and password entry by clicking the corresponding button in the main page.
-
-<br>
-
-## Screenshots:
-![Example image]()
 
 <br>
 

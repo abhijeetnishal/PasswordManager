@@ -20,7 +20,7 @@ const Login = () => {
     setIsLoading(true);
     setBtnClick(true);
     e.preventDefault();
-    const response = await fetch('https://passwordmanager-nbfr.onrender.com/api/auth/login',{
+    const response = await fetch('https://passwordmanagerserver.vercel.app/api/auth/login',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

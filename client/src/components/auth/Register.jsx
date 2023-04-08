@@ -17,7 +17,7 @@ const Register = () => {
     setIsLoading(true);
     setBtnClick(true);
     e.preventDefault();
-    const response = await fetch('https://passwordmanager-nbfr.onrender.com/api/auth/register',{
+    const response = await fetch('https://passwordmanagerserver.vercel.app/api/auth/register',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
