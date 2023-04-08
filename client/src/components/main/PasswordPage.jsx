@@ -42,7 +42,7 @@ const PasswordPage = () => {
         setIsLoading(true);
         const fetchData = async () => {
             // get the data from the api
-            const response = await fetch(`https://passwordmanagerserver.vercel.app/passwords/all/${userId}`);
+            const response = await fetch(`http://localhost:4000/passwords/all/${userId}`);
             // convert the data to json
             const data = await response.json();
             setData(data);
@@ -62,7 +62,7 @@ const PasswordPage = () => {
 
     async function decrypt(passwordId){
         //showHidebtn();
-        const response = await fetch(`https://passwordmanagerserver.vercel.app/passwords/specific/${passwordId}`,{
+        const response = await fetch(`http://localhost:4000/passwords/specific/${passwordId}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const PasswordPage = () => {
             //console.log(updateData);
             const fetchData = async () => {
                 // get the data from the api
-                const response = await fetch(`https://passwordmanagerserver.vercel.app/passwords/${editId}`,{
+                const response = await fetch(`http://localhost:4000/passwords/${editId}`,{
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

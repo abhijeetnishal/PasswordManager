@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 const LandingPage = () => {
 
   const startServer = async ()=>{
-    await fetch('https://passwordmanagerserver.vercel.app/',{
+    await fetch('http://localhost:4000/',{
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',

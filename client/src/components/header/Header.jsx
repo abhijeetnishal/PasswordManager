@@ -14,7 +14,7 @@ const Header = () => {
   const logout = () => {
     const fetchData = async () => {
       // get the data from the api
-      await fetch('https://passwordmanagerserver.vercel.app/api/auth/logout',{
+      await fetch('http://localhost:4000/api/auth/logout',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
